@@ -1,1 +1,30 @@
-<p>generator works!</p>
+<div class="container">
+    <div class="row">
+        <div class="col-6">
+            <a class="btn btn-primary" (click)="shuffleRacerAndTeam()">Losuj!</a>
+            <ul>
+                <li *ngFor="let element of racerTeam">
+                    {{element.racer.name}} - {{element.team.name}}
+                </li>
+            </ul>
+        </div>
+        <div class="col-6">
+            <div>
+                Pozostali gracze:
+                <ul>
+                    <li *ngFor="let element of racers">
+                        {{element.name}}
+                    </li>
+                </ul>
+            </div>
+            <div>
+                Pozostałe teamy:
+                <ul>
+                    <li *ngFor="let element of teams">
+                        {{element.name}}
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
