@@ -4,16 +4,28 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { RouterModule, Routes } from '@angular/router';
 import { GeneratorComponent } from './generator/generator.component';
+import { HeaderComponent } from './header/header.component';
+import { HomeComponent } from './home/home.component';
+import { StandingsComponent } from './standings/standings.component';
 
 const routes: Routes = [{
-  path: '',
-  component: GeneratorComponent
+    path: 'generator',
+    component: GeneratorComponent
+}, {
+    path: '',
+    component: HomeComponent
+}, {
+    path: 'standings',
+    component: StandingsComponent
 }];
 
 @NgModule({
     declarations: [
         AppComponent,
-        GeneratorComponent
+        GeneratorComponent,
+        HeaderComponent,
+        HomeComponent,
+        StandingsComponent
     ],
     imports: [
         BrowserModule,
