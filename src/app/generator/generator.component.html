@@ -2,11 +2,22 @@
     <div class="row">
         <div class="col-6">
             <a class="btn btn-primary" (click)="shuffleRacerAndTeam()">Losuj!</a>
-            <ul>
-                <li *ngFor="let element of racerTeam">
-                    {{element.racer.name}} - {{element.team.name}}
-                </li>
-            </ul>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Nickname</th>
+                    <th scope="col">Team</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let element of racerTeam; let i = index">
+                    <th scope="row">{{i + 1}}</th>
+                    <td>{{element.racer.name}}</td>
+                    <td>{{element.team.name}}</td>
+                </tr>
+                </tbody>
+            </table>
         </div>
         <div class="col-6">
             <div>
