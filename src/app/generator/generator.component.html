@@ -1,7 +1,7 @@
 <div class="container">
     <div class="row">
-        <div class="col-6">
-            <a class="btn btn-primary" (click)="shuffleRacerAndTeam()">Losuj!</a>
+        <div class="col-sm-6">
+            <a class="btn btn-dark w-100" (click)="shuffleRacerAndTeam()">Losuj!</a>
             <table class="table">
                 <thead>
                 <tr>
@@ -19,22 +19,40 @@
                 </tbody>
             </table>
         </div>
-        <div class="col-6">
-            <div>
-                Pozostali gracze:
-                <ul>
-                    <li *ngFor="let element of racers">
-                        {{element.name}}
-                    </li>
-                </ul>
-            </div>
-            <div>
-                Pozostałe teamy:
-                <ul>
-                    <li *ngFor="let element of teams">
-                        {{element.name}}
-                    </li>
-                </ul>
+        <div class="col-sm-6">
+            <div class="row">
+                <div class="col-6">
+                    <table class="table w-100">
+                        <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Pozostali gracze</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let element of racers; let i = index">
+                            <th scope="row">{{i + 1}}</th>
+                            <td>{{element.name}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-6">
+                    <table class="table w-100">
+                        <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Pozostałe teamy</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let element of teams; let i = index">
+                            <th scope="row">{{i + 1}}</th>
+                            <td>{{element.name}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
