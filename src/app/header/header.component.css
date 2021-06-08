@@ -1,0 +1,19 @@
+.navbar a.nav-link {
+    color: white;
+}
+
+.navbar a.nav-link:hover {
+    color: lightslategray;
+}
+
+.navbar a.nav-link.active {
+    color: lightslategray;
+}
+
+.navbar-brand, .navbar-brand:hover {
+    color: white;
+}
+
+nav {
+    border-bottom: solid 2px white;
+}

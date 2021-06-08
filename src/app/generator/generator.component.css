@@ -1,3 +1,15 @@
-.container {
-    padding-top: 2rem;
+.content-wrapper {
+    padding: 2rem 2rem;
+}
+
+table {
+    color: white;
+}
+
+a.btn:hover {
+    color: lightslategray;
+}
+
+.btn:hover {
+    background-color: rgba(0, 0, 0, 0.3) !important;
 }
