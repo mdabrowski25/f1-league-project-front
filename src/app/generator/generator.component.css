@@ -7,9 +7,25 @@ table {
 }
 
 a.btn:hover {
-    color: lightslategray;
+    color: white;
 }
 
 .btn:hover {
-    background-color: rgba(0, 0, 0, 0.3) !important;
+    background-color: rgba(0, 0, 0, 0.4) !important;
+}
+
+.custom-th-bg {
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.round-top-left {
+    border-radius: 20px 0 0 0;
+}
+
+.round-top-right {
+    border-radius: 0 20px 0 0;
+}
+
+tbody tr {
+    background-color: rgba(0, 0, 0, 0.2);
 }
