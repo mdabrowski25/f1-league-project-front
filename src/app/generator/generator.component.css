@@ -11,11 +11,11 @@ a.btn:hover {
 }
 
 .btn:hover {
-    background-color: rgba(0, 0, 0, 0.4) !important;
+    background-color: rgba(0, 0, 0, 0.6) !important;
 }
 
 .custom-th-bg {
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: rgba(0, 0, 0, 0.6);
 }
 
 .round-top-left {
@@ -27,5 +27,5 @@ a.btn:hover {
 }
 
 tbody tr {
-    background-color: rgba(0, 0, 0, 0.2);
+    background-color: rgba(0, 0, 0, 0.3);
 }
