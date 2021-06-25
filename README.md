@@ -1,27 +1,16 @@
 # FormulaTeamGenerator
+[![Netlify Status](https://api.netlify.com/api/v1/badges/edc6e729-ce26-45f7-8772-ea5895ab667b/deploy-status)](https://app.netlify.com/sites/ziemniaki-f1-liga/deploys) [![Azure App Service - ziemniaki-f1-liga](https://github.com/mdabrowski25/f1-league-project-front/actions/workflows/master_ziemniaki-f1-liga.yml/badge.svg)](https://github.com/mdabrowski25/f1-league-project-front/actions/workflows/master_ziemniaki-f1-liga.yml)
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.0.1.
+## Table of contents
+* [General info](#general-info)
+* [Technologies](#technologies)
 
-## Development server
+## General info
+Deployed at Azure and Netlify. Check by clicking on badges next to the project name.
+This is the Angular app front-end page for our f1 game league
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## Technologies
+Project is created with:
+* Node.js version: 14 LTS
+* Angular version: 12
+* Bootstrap version: 5
