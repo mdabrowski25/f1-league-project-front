@@ -34,5 +34,5 @@ jobs:
         app-name: ziemniaki-f1-liga
         slot-name: Production
         publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_24821B48438C4F1FAE519ED1DAC67E3B }}
-        package: ./dist/f1-league-project-front
+        package: ./dist/formula-team-generator
 
