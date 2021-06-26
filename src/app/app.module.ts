@@ -7,6 +7,7 @@ import { GeneratorComponent } from './generator/generator.component';
 import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
 import { StandingsComponent } from './standings/standings.component';
+import { HttpClientModule } from '@angular/common/http';
 
 const routes: Routes = [{
     path: 'generator',
@@ -29,6 +30,7 @@ const routes: Routes = [{
     ],
     imports: [
         BrowserModule,
+        HttpClientModule,
         RouterModule.forRoot(routes)
     ],
     providers: [],
