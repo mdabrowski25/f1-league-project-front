@@ -7,6 +7,7 @@ import { GeneratorComponent } from './generator/generator.component';
 import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
 import { StandingsComponent } from './standings/standings.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 const routes: Routes = [{
     path: 'generator',
@@ -29,7 +30,8 @@ const routes: Routes = [{
     ],
     imports: [
         BrowserModule,
-        RouterModule.forRoot(routes)
+        RouterModule.forRoot(routes),
+        FontAwesomeModule
     ],
     providers: [],
     bootstrap: [AppComponent]
