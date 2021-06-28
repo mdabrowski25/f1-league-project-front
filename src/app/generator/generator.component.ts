@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { RacerTeamDto } from '../shared/dto/racer-team-dto.model';
 import { Racer } from '../shared/model/racer.model';
 import { Team } from '../shared/model/team.model';
+import { HttpService } from '../services/http.service';
+import { map } from 'rxjs/operators';
 
 @Component({
     selector: 'app-generator',
@@ -36,10 +38,13 @@ export class GeneratorComponent implements OnInit {
 
     racerTeam: RacerTeamDto[] = [];
 
-    constructor() {
+    constructor(private http: HttpService) {
     }
 
     ngOnInit(): void {
+        // this.http.getRacers().subscribe((data) => {
+        //     this.racers = data.racers;
+        // });
     }
 
     shuffleRacerAndTeam(): RacerTeamDto {

@@ -1,4 +1,5 @@
 export class Racer {
+    _id?: string;
     id: number;
     name: string;
 

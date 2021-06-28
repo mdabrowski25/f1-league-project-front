@@ -4,13 +4,14 @@ import { Racer } from '../shared/model/racer.model';
 import { Team } from '../shared/model/team.model';
 import { Race } from '../shared/model/race.model';
 import { RacesDto } from '../shared/dto/races-dto.model';
+import { map } from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root'
 })
 export class HttpService {
-    POST_URL = 'http://localhost:3000';
-    GET_URL = 'http://localhost:3000';
+    POST_URL = 'http://localhost:3000/api';
+    GET_URL = 'http://localhost:3000/api';
 
     constructor(private httpClient: HttpClient) {
     }
@@ -40,7 +41,7 @@ export class HttpService {
     }
 
     getRacers() {
-        return this.httpClient.get<Racer[]>(this.GET_URL + '/get/racers');
+        return this.httpClient.get<{racers: Racer[]}>(this.GET_URL + '/get/racers');
     }
 
     getTeams() {
