@@ -17,3 +17,8 @@
 nav {
     border-bottom: solid 2px white;
 }
+
+.my-toggler {
+    color: white;
+    font-size: 1.2em;
+}
