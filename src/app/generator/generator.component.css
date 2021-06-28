@@ -14,10 +14,6 @@ a.btn:hover {
     background-color: rgba(0, 0, 0, 0.6) !important;
 }
 
-.custom-th-bg {
-    background-color: rgba(0, 0, 0, 0.6);
-}
-
 .round-top-left {
     border-radius: 20px 0 0 0;
 }
@@ -26,6 +22,19 @@ a.btn:hover {
     border-radius: 0 20px 0 0;
 }
 
-tbody tr {
-    background-color: rgba(0, 0, 0, 0.3);
+.bottom-tr {
+    border: transparent;
+
+}
+.round-bottom-right {
+    border-radius: 0 0 20px 0;
+}
+
+.round-bottom-left {
+    border-radius: 0 0 0 20px;
+}
+
+.info-p {
+    text-align: center;
+    color: white;
 }

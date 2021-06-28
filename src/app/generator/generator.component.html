@@ -3,19 +3,24 @@
         <div class="row">
             <div class="col-sm-6">
                 <a class="btn btn-light btn-outline-light bg-transparent w-100 mb-3" (click)="shuffleRacerAndTeam()">Losuj!</a>
-                <table class="table">
+                <table class="table w-100 table-dark table-striped table-hover">
                     <thead>
-                    <tr>
+                    <tr class="align-middle text-center">
                         <th scope="col" class="custom-th-bg round-top-left">#</th>
                         <th scope="col" class="custom-th-bg">Nickname</th>
                         <th scope="col" class="custom-th-bg round-top-right">Team</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr *ngFor="let element of racerTeam; let i = index">
+                    <tr *ngFor="let element of racerTeam; let i = index" class="align-middle text-center">
                         <th scope="row">{{i + 1}}</th>
                         <td>{{element.racer.name}}</td>
                         <td>{{element.team.name}}</td>
+                    </tr>
+                    <tr class="bottom-tr" *ngIf="racerTeam.length !== 0">
+                        <th class="round-bottom-left"></th>
+                        <td></td>
+                        <td class="round-bottom-right"></td>
                     </tr>
                     </tbody>
                 </table>
@@ -23,36 +28,46 @@
             <div class="col-sm-6">
                 <div class="row">
                     <div class="col-6">
-                        <table class="table w-100">
+                        <table class="table w-100 table-dark table-striped table-hover" *ngIf="racers.length !== 0">
                             <thead>
-                            <tr>
+                            <tr class="align-middle text-center">
                                 <th scope="col" class="custom-th-bg round-top-left">#</th>
                                 <th scope="col" class="custom-th-bg round-top-right">Pozostali gracze</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr *ngFor="let element of racers; let i = index">
+                            <tr *ngFor="let element of racers; let i = index" class="align-middle text-center">
                                 <th scope="row">{{i + 1}}</th>
                                 <td>{{element.name}}</td>
                             </tr>
+                            <tr class="bottom-tr">
+                                <th class="round-bottom-left"></th>
+                                <td class="round-bottom-right"></td>
+                            </tr>
                             </tbody>
                         </table>
+                        <p *ngIf="racers.length === 0" class="info-p">Brak pozostałych graczy</p>
                     </div>
                     <div class="col-6">
-                        <table class="table w-100">
+                        <table class="table w-100 table-dark table-striped table-hover" *ngIf="teams.length !== 0">
                             <thead>
-                            <tr>
+                            <tr class="align-middle text-center">
                                 <th scope="col" class="custom-th-bg round-top-left">#</th>
                                 <th scope="col" class="custom-th-bg round-top-right">Pozostałe teamy</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr *ngFor="let element of teams; let i = index">
+                            <tr *ngFor="let element of teams; let i = index" class="align-middle text-center">
                                 <th scope="row">{{i + 1}}</th>
                                 <td>{{element.name}}</td>
                             </tr>
+                            <tr class="bottom-tr">
+                                <th class="round-bottom-left"></th>
+                                <td class="round-bottom-right"></td>
+                            </tr>
                             </tbody>
                         </table>
+                        <p *ngIf="teams.length === 0" class="info-p">Brak pozostałych teamów</p>
                     </div>
                 </div>
             </div>
