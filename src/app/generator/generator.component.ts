@@ -12,20 +12,15 @@ import { HttpService } from '../services/http.service';
 export class GeneratorComponent implements OnInit {
     racers: Racer[] = [];
 
-    teams = [
-        new Team(1, 'Red Bull Racing'),
-        new Team(2, 'Red Bull Racing'),
-        new Team(3, 'Renault'),
-        new Team(4, 'Renault'),
-        new Team(5, 'Ferrari'),
-        new Team(6, 'Ferrari'),
-        new Team(7, 'Mercedes'),
-        new Team(8, 'Mercedes'),
-        new Team(9, 'McLaren'),
-        new Team(10, 'McLaren')
-    ];
+    teams: Team[] = [];
 
     racerTeam: RacerTeamDto[] = [];
+
+    rbCount = 0;
+    ferrariCount = 0;
+    renaultCount = 0;
+    mercedesCount = 0;
+    mcLarenCount = 0;
 
     constructor(private http: HttpService) {
     }
@@ -34,11 +29,13 @@ export class GeneratorComponent implements OnInit {
         this.http.getRacers().subscribe((data) => {
             this.racers = data.racers;
         });
+        this.http.getTeams().subscribe(data => {
+            this.teams = data.teams;
+        });
     }
 
     shuffleRacerAndTeam(): void {
         const randomRacerInt = Math.floor(Math.random() * this.racers.length);
-
         if (this.racers.length === 0) {
             return;
         }
@@ -55,11 +52,51 @@ export class GeneratorComponent implements OnInit {
         }
 
         let shuffledTeam = this.teams[randomTeamInt];
-        this.teams = this.teams.filter((e) => {
-            return e.id !== shuffledTeam.id;
-        })
+        switch (shuffledTeam.name){
+            case 'Red Bull Racing': {
+                this.rbCount++;
+                if (this.rbCount === 2) {
+                    this.deleteTeamFromArray(shuffledTeam);
+                }
+                break;
+            }
+            case 'Ferrari': {
+                this.ferrariCount++;
+                if (this.ferrariCount === 2) {
+                    this.deleteTeamFromArray(shuffledTeam);
+                }
+                break;
+            }
+            case 'Renault': {
+                this.renaultCount++;
+                if (this.renaultCount === 2) {
+                    this.deleteTeamFromArray(shuffledTeam);
+                }
+                break;
+            }
+            case 'Mercedes': {
+                this.mercedesCount++;
+                if (this.mercedesCount === 2) {
+                    this.deleteTeamFromArray(shuffledTeam);
+                }
+                break;
+            }
+            case 'McLaren': {
+                this.mcLarenCount++;
+                if (this.mcLarenCount === 2) {
+                    this.deleteTeamFromArray(shuffledTeam);
+                }
+                break;
+            }
+        }
 
         let racerTeamDto = new RacerTeamDto(shuffledRacer, shuffledTeam);
         this.racerTeam.push(racerTeamDto);
+    }
+
+    private deleteTeamFromArray(shuffledTeam: Team) {
+        this.teams = this.teams.filter((e) => {
+            return e.id !== shuffledTeam.id;
+        });
     }
 }

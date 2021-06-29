@@ -1,4 +1,5 @@
 export class Team {
+    _id?: string;
     id: number;
     name: string;
 
