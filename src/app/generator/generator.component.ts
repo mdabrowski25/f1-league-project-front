@@ -42,10 +42,12 @@ export class GeneratorComponent implements OnInit {
     ngOnInit(): void {
     }
 
-    shuffleRacerAndTeam(): RacerTeamDto {
+    shuffleRacerAndTeam(): void {
         const randomRacerInt = Math.floor(Math.random() * this.racers.length);
 
-        if (this.racers.length === 0){return new RacerTeamDto(new Racer(69,"*"), new Team(69,"*"))}
+        if (this.racers.length === 0) {
+            return;
+        }
 
         let shuffledRacer = this.racers[randomRacerInt];
         this.racers = this.racers.filter((e) => {
@@ -54,7 +56,9 @@ export class GeneratorComponent implements OnInit {
 
         const randomTeamInt = Math.floor(Math.random() * this.teams.length);
 
-        if (this.teams.length === 0){return new RacerTeamDto(new Racer(69,"*"), new Team(69,"*"))}
+        if (this.teams.length === 0) {
+            return;
+        }
 
         let shuffledTeam = this.teams[randomTeamInt];
         this.teams = this.teams.filter((e) => {
@@ -63,6 +67,5 @@ export class GeneratorComponent implements OnInit {
 
         let racerTeamDto = new RacerTeamDto(shuffledRacer, shuffledTeam);
         this.racerTeam.push(racerTeamDto);
-        return racerTeamDto;
     }
 }
