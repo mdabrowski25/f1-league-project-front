@@ -21,16 +21,28 @@ export class GeneratorComponent implements OnInit {
     renaultCount = 0;
     mercedesCount = 0;
     mcLarenCount = 0;
+    loadingRacers: boolean = false;
+    loadingTeams: boolean = false;
+    racersFetchErrorOccurred: boolean = false;
+    teamsFetchErrorOccurred: boolean = false;
 
     constructor(private http: HttpService) {
     }
 
     ngOnInit(): void {
+        this.loadingRacers = true;
         this.http.getRacers().subscribe((data) => {
+            this.loadingRacers = false;
             this.racers = data.racers;
+        }, () => {
+            this.racersFetchErrorOccurred = true;
         });
+        this.loadingTeams = true
         this.http.getTeams().subscribe(data => {
+            this.loadingTeams = false;
             this.teams = data.teams;
+        }, () => {
+            this.teamsFetchErrorOccurred = true;
         });
     }
 
