@@ -1,15 +1,15 @@
 import { RacerTeamDto } from '../dto/racer-team-dto.model';
+import { Racer } from './racer.model';
 
 export class RaceData {
-    standings: Map<number, string>
-    racerAndTeam: RacerTeamDto;
+    standings: Map<number, Racer>
+    racersAndTeams: RacerTeamDto[];
     bestLapTime: string;
-    points: number;
 
-    constructor(standings: Map<number, string>, racerAndTeam: RacerTeamDto, bestLapTime: string, points: number) {
+
+    constructor(standings: Map<number, Racer>, racersAndTeams: RacerTeamDto[], bestLapTime: string) {
         this.standings = standings;
-        this.racerAndTeam = racerAndTeam;
+        this.racersAndTeams = racersAndTeams;
         this.bestLapTime = bestLapTime;
-        this.points = points;
     }
 }

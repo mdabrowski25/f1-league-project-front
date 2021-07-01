@@ -9,14 +9,14 @@ import { RacesDto } from '../shared/dto/races-dto.model';
     providedIn: 'root'
 })
 export class HttpService {
-    POST_URL = 'http://localhost:3000/api';
-    GET_URL = 'http://localhost:3000/api';
+    POST_URL = 'http://localhost:3000/api/post';
+    GET_URL = 'http://localhost:3000/api/get';
 
     constructor(private httpClient: HttpClient) {
     }
 
     postRacer(racer: Racer) {
-        this.httpClient.post<Racer>(this.POST_URL + '/post/racer', racer).subscribe(() => {
+        this.httpClient.post<Racer>(this.POST_URL + '/racer', racer).subscribe(() => {
             console.log('post successful');
         }, (err) => {
             console.error(err);
@@ -24,7 +24,7 @@ export class HttpService {
     }
 
     postTeam(team: Team) {
-        this.httpClient.post<Team>(this.POST_URL + '/post/team', team).subscribe(() => {
+        this.httpClient.post<Team>(this.POST_URL + '/team', team).subscribe(() => {
             console.log('post successful');
         }, (err) => {
             console.error(err);
@@ -32,7 +32,7 @@ export class HttpService {
     }
 
     postRace(race: Race) {
-        this.httpClient.post<Race>(this.POST_URL + '/post/race', race).subscribe(() => {
+        this.httpClient.post<Race>(this.POST_URL + '/race', race).subscribe(() => {
             console.log('post successful');
         }, (err) => {
             console.error(err);
@@ -40,15 +40,21 @@ export class HttpService {
     }
 
     getRacers() {
-        return this.httpClient.get<{ racers: Racer[] }>(this.GET_URL + '/get/racers');
+        return this.httpClient.get<{ racers: Racer[] }>(this.GET_URL + '/racers');
     }
 
     getTeams() {
-        return this.httpClient.get<{ teams: Team[] }>(this.GET_URL + '/get/teams');
+        return this.httpClient.get<{ teams: Team[] }>(this.GET_URL + '/teams');
     }
 
     getRaces() {
-        return this.httpClient.get<RacesDto>(this.GET_URL + '/get/races');
+        return this.httpClient.get<{
+            races: [racesDto: RacesDto]
+        }>(this.GET_URL + '/races');
+    }
+
+    getRacer(id: number) {
+        return this.httpClient.get(this.GET_URL + '/racer' + id);
     }
 
 
