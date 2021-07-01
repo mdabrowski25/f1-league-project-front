@@ -9,6 +9,8 @@ import { HomeComponent } from './home/home.component';
 import { StandingsComponent } from './standings/standings.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { DatePipe } from '@angular/common';
+import { UpcomingRacesComponent } from './standings/upcoming-races/upcoming-races.component';
 
 const routes: Routes = [{
     path: 'generator',
@@ -27,7 +29,8 @@ const routes: Routes = [{
         GeneratorComponent,
         HeaderComponent,
         HomeComponent,
-        StandingsComponent
+        StandingsComponent,
+        UpcomingRacesComponent
     ],
     imports: [
         BrowserModule,
@@ -35,7 +38,7 @@ const routes: Routes = [{
         RouterModule.forRoot(routes),
         FontAwesomeModule
     ],
-    providers: [],
+    providers: [DatePipe],
     bootstrap: [AppComponent]
 })
 export class AppModule {

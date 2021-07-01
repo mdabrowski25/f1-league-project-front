@@ -19,3 +19,30 @@ body {
 }
 
 /* ------------------------------- */
+
+
+/* FOR TABLES */
+.round-bottom-right {
+    border-radius: 0 0 20px 0;
+}
+
+.round-bottom-left {
+    border-radius: 0 0 0 20px;
+}
+
+table {
+    color: white;
+}
+
+.round-top-left {
+    border-radius: 20px 0 0 0;
+}
+
+.round-top-right {
+    border-radius: 0 20px 0 0;
+}
+
+.bottom-tr {
+    border: transparent;
+}
+/* ------------------------------- */

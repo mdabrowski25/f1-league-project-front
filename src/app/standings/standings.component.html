@@ -1,4 +1,13 @@
-<h1 style="padding: 2rem; color: white">Coming soon</h1>
-<ul>
-    <li *ngFor="let el of races">{{el.name}}</li>
-</ul>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-6">
+
+        </div>
+        <div class="col-sm-4">
+
+        </div>
+        <div class="col-sm-2">
+            <app-upcoming-races [races]="races"></app-upcoming-races>
+        </div>
+    </div>
+</div>

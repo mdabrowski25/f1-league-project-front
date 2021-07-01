@@ -3,7 +3,8 @@ import { RaceData } from './racedata.model';
 export class Race {
     id: number;
     name: string;
-    scores?: Map<number, RaceData>;
+    date?: string | null;
+    scores?: RaceData;
 
 
     constructor(id: number, name: string) {

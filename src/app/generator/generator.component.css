@@ -1,37 +1,12 @@
 .content-wrapper {
     padding: 2rem 2rem;
 }
-
-table {
-    color: white;
-}
-
 a.btn:hover {
     color: white;
 }
 
 .btn:hover {
     background-color: rgba(0, 0, 0, 0.6) !important;
-}
-
-.round-top-left {
-    border-radius: 20px 0 0 0;
-}
-
-.round-top-right {
-    border-radius: 0 20px 0 0;
-}
-
-.bottom-tr {
-    border: transparent;
-
-}
-.round-bottom-right {
-    border-radius: 0 0 20px 0;
-}
-
-.round-bottom-left {
-    border-radius: 0 0 0 20px;
 }
 
 .info-p {
