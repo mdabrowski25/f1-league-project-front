@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RacerTeamDto } from '../shared/dto/racer-team-dto.model';
+import { RacerTeam } from '../shared/model/racer-team.model';
 import { Racer } from '../shared/model/racer.model';
 import { Team } from '../shared/model/team.model';
 import { HttpService } from '../services/http.service';
@@ -14,7 +14,7 @@ export class GeneratorComponent implements OnInit {
 
     teams: Team[] = [];
 
-    racerTeam: RacerTeamDto[] = [];
+    racerTeam: RacerTeam[] = [];
 
     rbCount = 0;
     ferrariCount = 0;
@@ -102,7 +102,7 @@ export class GeneratorComponent implements OnInit {
             }
         }
 
-        let racerTeamDto = new RacerTeamDto(shuffledRacer, shuffledTeam);
+        let racerTeamDto = new RacerTeam(shuffledRacer, shuffledTeam);
         this.racerTeam.push(racerTeamDto);
     }
 

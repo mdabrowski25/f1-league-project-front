@@ -12,6 +12,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { DatePipe } from '@angular/common';
 import { UpcomingRacesComponent } from './standings/upcoming-races/upcoming-races.component';
 import { GeneralClassificationComponent } from './standings/general-classification/general-classification.component';
+import { ConstructorsClassificationComponent } from './standings/constructors-classification/constructors-classification.component';
 
 const routes: Routes = [{
     path: 'generator',
@@ -32,7 +33,8 @@ const routes: Routes = [{
         HomeComponent,
         StandingsComponent,
         UpcomingRacesComponent,
-        GeneralClassificationComponent
+        GeneralClassificationComponent,
+        ConstructorsClassificationComponent
     ],
     imports: [
         BrowserModule,

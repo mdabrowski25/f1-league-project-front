@@ -1,22 +1,25 @@
-
-<table class="table w-100 table-dark table-striped table-hover mt-3">
-    <thead>
-    <tr class="align-middle text-center">
-        <th scope="col" class="custom-th-bg round-top-left">#</th>
-        <th scope="col" class="custom-th-bg">Nadchodzące</th>
-        <th scope="col" class="custom-th-bg round-top-right">Data i godzina</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let element of races; let i = index" class="align-middle text-center">
-        <th scope="row">{{i + 1}}</th>
-        <td>{{element.name}}</td>
-        <td>{{showDate(element)}}</td>
-    </tr>
-    <tr class="bottom-tr">
-        <th class="round-bottom-left"></th>
-        <td class=""></td>
-        <td class="round-bottom-right"></td>
-    </tr>
-    </tbody>
-</table>
+<div class="container-fluid">
+    <div class="row">
+            <table class="table w-100 table-dark table-striped table-hover mt-3">
+                <thead>
+                <tr class="align-middle text-center">
+                    <th scope="col" class="custom-th-bg round-top-left">#</th>
+                    <th scope="col" class="custom-th-bg">Nadchodzące</th>
+                    <th scope="col" class="custom-th-bg round-top-right">Data i godzina</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let element of races; let i = index" class="align-middle text-center">
+                    <th scope="row">{{i + 1}}</th>
+                    <td>{{element.name}}</td>
+                    <td>{{showDate(element)}}</td>
+                </tr>
+                <tr class="bottom-tr">
+                    <th class="round-bottom-left"></th>
+                    <td class=""></td>
+                    <td class="round-bottom-right"></td>
+                </tr>
+                </tbody>
+            </table>
+    </div>
+</div>

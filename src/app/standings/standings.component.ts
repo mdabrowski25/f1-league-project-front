@@ -3,11 +3,8 @@ import { Race } from '../shared/model/race.model';
 import { HttpService } from '../services/http.service';
 import { DatePipe } from '@angular/common';
 import { Racer } from '../shared/model/racer.model';
-import { RacesDto } from '../shared/dto/races-dto.model';
-import { RacerTeamDto } from '../shared/dto/racer-team-dto.model';
 import { Team } from '../shared/model/team.model';
-import { RaceData } from '../shared/model/racedata.model';
-import { Scoreboard } from '../shared/model/scoreboard.model';
+
 
 @Component({
     selector: 'app-standings',
@@ -36,9 +33,11 @@ export class StandingsComponent implements OnInit {
             this.teams = data.teams;
         });
 
-        this.http.getRaces().subscribe((data) => {
+        //TO DO
+        // this.http.getRaces().subscribe((data) => {
+        //
+        // });
 
-        });
         this.races[0].date = this.datePipe.transform(new Date(2021, 7 - 1, 4, 20), 'dd-MM-yyyy HH:mm');
     }
 

@@ -1,7 +1,7 @@
-import { Racer } from '../model/racer.model';
-import { Team } from '../model/team.model';
+import { Racer } from './racer.model';
+import { Team } from './team.model';
 
-export class RacerTeamDto {
+export class RacerTeam {
     racer: Racer;
     team: Team;
 

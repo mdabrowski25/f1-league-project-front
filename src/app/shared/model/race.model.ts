@@ -4,7 +4,7 @@ export class Race {
     id: number;
     name: string;
     date?: string | null;
-    scores?: RaceData;
+    scores?: RaceData[];
 
 
     constructor(id: number, name: string) {
