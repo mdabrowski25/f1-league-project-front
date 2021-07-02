@@ -7,6 +7,7 @@ import { RacesDto } from '../shared/dto/races-dto.model';
 import { RacerTeamDto } from '../shared/dto/racer-team-dto.model';
 import { Team } from '../shared/model/team.model';
 import { RaceData } from '../shared/model/racedata.model';
+import { Scoreboard } from '../shared/model/scoreboard.model';
 
 @Component({
     selector: 'app-standings',
@@ -36,49 +37,9 @@ export class StandingsComponent implements OnInit {
         });
 
         this.http.getRaces().subscribe((data) => {
-            let racesDto: RacesDto[] = data.races;
-            let racesArray: Race[] = [];
-            let racersTeamsDto: RacerTeamDto[] = [];
 
-            racesDto.forEach(el => {
-                let race = new Race(el.id, el.name)
-                race.date = el.date;
-                let standings = el.scores.standings;
-                let standingsMap = new Map<number, Racer>();
-
-                for (let [key, value] of standings) {
-                    let strings = value.split(',');
-                    let racerById = this.racers.find(el => el.id === +strings[0]);
-                    let teamToReturn = this.returnTeamFromString(strings[1]);
-                    if (racerById != undefined && teamToReturn != undefined) {
-                        standingsMap.set(+key, racerById);
-                        let racerTeamDtoToPush = new RacerTeamDto(racerById, teamToReturn);
-                        racersTeamsDto.push(racerTeamDtoToPush);
-                    }
-                }
-
-                let racerAndBestLapTime = el.bestLapTime.split(',');
-                let racerWithBestLapTime = this.racers.find(racer => racer.id === +racerAndBestLapTime[0]);
-                if (racerWithBestLapTime != undefined) {
-                    racerWithBestLapTime.points++;
-                }
-
-                race.scores = new RaceData(standingsMap, racersTeamsDto, racerAndBestLapTime[1]);
-
-                racesArray.push(race);
-            });
-
-            this.races = racesArray;
-
-            this.addPointsToRacers();
-
-            this.sortRacersByPoints();
         });
         this.races[0].date = this.datePipe.transform(new Date(2021, 7 - 1, 4, 20), 'dd-MM-yyyy HH:mm');
-    }
-
-    private addPointsToRacers() {
-        // TO DO
     }
 
     private sortRacersByPoints() {
