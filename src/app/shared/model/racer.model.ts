@@ -4,9 +4,9 @@ export class Racer {
     name: string;
     points: number;
 
-    constructor(id: number, name: string, points: number) {
+    constructor(id: number, name: string) {
         this.id = id;
         this.name = name;
-        this.points = points;
+        this.points = 0;
     }
 }

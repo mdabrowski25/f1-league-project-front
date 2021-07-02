@@ -9,7 +9,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr *ngFor="let element of races; let i = index" class="align-middle text-center">
+                <tr *ngFor="let element of racesToCome; let i = index" class="align-middle text-center">
                     <th scope="row">{{i + 1}}</th>
                     <td>{{element.name}}</td>
                     <td>{{showDate(element)}}</td>

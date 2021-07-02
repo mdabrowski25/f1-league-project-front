@@ -1,0 +1,28 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="accordion mt-3" id="myAccordion">
+            <div class="accordion-item bg-dark text-light" *ngFor="let race of races, let i = index">
+                <h2 class="accordion-header" [attr.id]="'heading'+(i+100)">
+                    <button class="accordion-button collapsed text-light bg-dark" type="button"
+                            data-bs-toggle="collapse"
+                            [attr.data-bs-target]="'#collapse'+(i+100)" aria-expanded="false"
+                            [attr.aria-controls]="'collapse'+(i+100)">
+                                <span>
+                                    {{race.name + ' ' + race.date}}
+                                </span>
+                    </button>
+                </h2>
+                <div [attr.id]="'collapse'+(i+100)" class="accordion-collapse collapse"
+                     [attr.aria-labelledby]="'heading'+(i+100)"
+                     data-bs-parent="#myAccordion">
+                    <div class="accordion-body">
+                        <div *ngFor="let standings of race.scores, let i = index">
+                            {{standings.position}} {{standings.racerAndTeam.racer.name}} {{standings.racerAndTeam.team.name}}
+                            {{standings.bestLapTime}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

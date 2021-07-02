@@ -39,8 +39,8 @@ export class GeneratorComponent implements OnInit {
         });
         this.loadingTeams = true
         this.http.getTeams().subscribe(data => {
-            this.loadingTeams = false;
             this.teams = data.teams;
+            this.loadingTeams = false;
         }, () => {
             this.teamsFetchErrorOccurred = true;
         });

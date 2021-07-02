@@ -1,13 +1,28 @@
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-sm-6">
+    <div class="row" *ngIf="!loading && !fetchErrorOccurred">
+        <div class="col-sm-4">
             <app-general-classification [races]="races" [racers]="racers"></app-general-classification>
         </div>
         <div class="col-sm-4">
+            <app-last-races [races]="races"></app-last-races>
+        </div>
+        <div class="col-sm-2">
             <app-constructors-classification [teams]="teams"></app-constructors-classification>
         </div>
         <div class="col-sm-2">
-            <app-upcoming-races [races]="races"></app-upcoming-races>
+            <app-upcoming-races></app-upcoming-races>
+        </div>
+    </div>
+    <div class="row">
+        <div class="d-flex justify-content-center mt-4">
+            <div class="spinner-border text-light" style="width: 6rem; height: 6rem;" role="status" *ngIf="loading && !fetchErrorOccurred">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <div *ngIf="fetchErrorOccurred" class="text-white ">
+                <p>
+                    Database error, contact page owner
+                </p>
+            </div>
         </div>
     </div>
 </div>
