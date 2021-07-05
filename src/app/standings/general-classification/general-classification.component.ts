@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Race } from '../../shared/model/race.model';
 import { Racer } from '../../shared/model/racer.model';
+import { RaceStats } from '../../shared/model/racestats.model';
 
 @Component({
   selector: 'app-general-classification',
@@ -16,4 +17,8 @@ export class GeneralClassificationComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  driversRaces(racer: Racer): RaceStats[] {
+    
+    return [];
+  }
 }

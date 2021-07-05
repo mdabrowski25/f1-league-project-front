@@ -7,7 +7,7 @@ import { Race } from '../../shared/model/race.model';
     styleUrls: ['./last-races.component.css']
 })
 export class LastRacesComponent implements OnInit {
-    @Input() races: Race[] = []
+    @Input() races: Race[] = [];
 
     constructor() {
     }

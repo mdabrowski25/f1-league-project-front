@@ -8,7 +8,6 @@ import { RaceData } from '../shared/model/racedata.model';
 import { RacerTeam } from '../shared/model/racer-team.model';
 import { forkJoin, Observable } from 'rxjs';
 
-
 @Component({
     selector: 'app-standings',
     templateUrl: './standings.component.html',
@@ -52,7 +51,7 @@ export class StandingsComponent implements OnInit {
                     if (racer != undefined && team != undefined && race.scores != undefined) {
                         let racerTeam = new RacerTeam(racer, team);
                         let raceData = new RaceData(scoreboardElement.position, racerTeam, scoreboardElement.bestLapTime);
-                        race.scores.push(raceData)
+                        race.scores.push(raceData);
                     }
                 }
                 racesArray.push(race);
