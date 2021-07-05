@@ -1,15 +1,13 @@
 <div class="container-fluid">
     <div class="row" *ngIf="!loading && !fetchErrorOccurred">
-        <div class="col-lg-4">
+        <div class="col-lg-5">
             <app-general-classification [races]="races" [racers]="racers" ></app-general-classification>
         </div>
-        <div class="col-lg-4">
+        <div class="col-lg-5">
             <app-last-races [races]="races"></app-last-races>
         </div>
         <div class="col-lg-2">
             <app-constructors-classification [teams]="teams"></app-constructors-classification>
-        </div>
-        <div class="col-lg-2">
             <app-upcoming-races></app-upcoming-races>
         </div>
     </div>
