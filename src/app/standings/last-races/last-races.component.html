@@ -30,7 +30,7 @@
                                 <th scope="row">{{standings.position}}</th>
                                 <td>{{standings.racerAndTeam.racer.name}}</td>
                                 <td>{{standings.racerAndTeam.team.name}}</td>
-                                <td>{{standings.bestLapTime[0] + ':' + standings.bestLapTime[1] + ':' + standings.bestLapTime[2]}}</td>
+                                <td [ngClass]="race.bestLapTime == standings.bestLapTime ? 'bestLap' : ''">{{standings.bestLapTime[0] + ':' + standings.bestLapTime[1] + ':' + standings.bestLapTime[2]}}</td>
                             </tr>
                             </tbody>
                         </table>

@@ -43,6 +43,7 @@ export class StandingsComponent implements OnInit {
                 let raceFromDb = racesFromDb[i];
                 let race = new Race(raceFromDb.id, raceFromDb.name);
                 race.date = raceFromDb.date;
+                race.bestLapTime = raceFromDb.bestLapTime;
                 let scoreboard = raceFromDb.scores;
                 for (let j = 0; j < scoreboard.length; j++) {
                     let scoreboardElement = scoreboard[j];
@@ -96,7 +97,7 @@ export class StandingsComponent implements OnInit {
     private addPoints(string: string) {
         for (let i = 0; i < this.races.length; i++) {
             let bestLapTime: number[] = [1000, 1000, 1000];
-            let racerWithBestLapTime: Racer = {id: 0, name: '', points: 0};
+            let racerWithBestLapTime: Racer = new Racer(0, '');
 
             let scores = this.races[i].scores;
             if (scores != undefined) {
@@ -142,11 +143,10 @@ export class StandingsComponent implements OnInit {
     }
 
     private addBestLapAndPoint(i: number, racerWithBestLapTime: Racer, bestLapTime: number[]) {
-        this.races[i].racerWithBestLapTime = racerWithBestLapTime;
-        this.races[i].bestLapTime = bestLapTime;
         let racerTemp = this.racers.find(el => el.id == racerWithBestLapTime.id);
         if (racerTemp != undefined) {
             this.racers[racerTemp.id - 1].points++;
+            this.races[i].bestLapTime = bestLapTime;
         }
     }
 

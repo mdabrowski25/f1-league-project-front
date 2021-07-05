@@ -1,12 +1,10 @@
 import { RaceData } from './racedata.model';
-import { Racer } from './racer.model';
 
 export class Race {
     id: number;
     name: string;
     date?: string | null;
     scores?: RaceData[];
-    racerWithBestLapTime?: Racer;
     bestLapTime?: number[];
 
 
@@ -14,5 +12,6 @@ export class Race {
         this.id = id;
         this.name = name;
         this.scores = [];
+        this.bestLapTime = [];
     }
 }
