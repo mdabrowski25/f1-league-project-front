@@ -1,7 +1,7 @@
 <div class="container-fluid">
     <div class="row" *ngIf="!loading && !fetchErrorOccurred">
         <div class="col-lg-4">
-            <app-general-classification [races]="races" [racers]="racers"></app-general-classification>
+            <app-general-classification [races]="races" [racers]="racers" ></app-general-classification>
         </div>
         <div class="col-lg-4">
             <app-last-races [races]="races"></app-last-races>

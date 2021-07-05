@@ -34,26 +34,8 @@ export class StandingsComponent implements OnInit {
         this.loading = true;
         forkJoin(this.observables).subscribe(([dataRacers, dataTeams, dataRaces]) => {
             this.racers = dataRacers.racers;
-            this.racers.sort((a, b) => {
-                if (a.id < b.id) {
-                    return -1;
-                } else if (a.id == b.id) {
-                    return 0;
-                } else {
-                    return 1;
-                }
-            });
-
             this.teams = dataTeams.teams;
-            this.teams.sort((a, b) => {
-                if (a.id < b.id) {
-                    return -1;
-                } else if (a.id == b.id) {
-                    return 0;
-                } else {
-                    return 1;
-                }
-            });
+            this.sortRacersAndTeamsByIds();
 
             let racesFromDb: RacesDto[] = dataRaces.races;
             let racesArray: Race[] = [];
@@ -86,6 +68,27 @@ export class StandingsComponent implements OnInit {
         });
     }
 
+    private sortRacersAndTeamsByIds() {
+        this.racers.sort((a, b) => {
+            if (a.id < b.id) {
+                return -1;
+            } else if (a.id == b.id) {
+                return 0;
+            } else {
+                return 1;
+            }
+        });
+        this.teams.sort((a, b) => {
+            if (a.id < b.id) {
+                return -1;
+            } else if (a.id == b.id) {
+                return 0;
+            } else {
+                return 1;
+            }
+        });
+    }
+
     private addPointsToDriversAndTeams() {
         this.addPoints('racers');
         this.addPoints('teams');
@@ -93,6 +96,9 @@ export class StandingsComponent implements OnInit {
 
     private addPoints(string: string) {
         for (let i = 0; i < this.races.length; i++) {
+            let bestLapTime: number[] = [1000, 1000, 1000];
+            let racerWithBestLapTime: Racer = {id: 0, name: '', points: 0};
+
             let scores = this.races[i].scores;
             if (scores != undefined) {
                 const pointsArray: number[] = [25, 18, 15, 12, 10, 8, 6, 4, 2, 1];
@@ -103,6 +109,20 @@ export class StandingsComponent implements OnInit {
                         if (racer != undefined) {
                             if (j < 10) {
                                 this.racers[racer.id - 1].points += pointsArray[j];
+                            }
+                        }
+                        if (currentRaceData.bestLapTime[0] < bestLapTime[0]) {
+                            bestLapTime = currentRaceData.bestLapTime;
+                            racerWithBestLapTime = currentRaceData.racerAndTeam.racer
+                        } else if (currentRaceData.bestLapTime[0] == bestLapTime[0]) {
+                            if (currentRaceData.bestLapTime[1] < bestLapTime[1]) {
+                                bestLapTime = currentRaceData.bestLapTime;
+                                racerWithBestLapTime = currentRaceData.racerAndTeam.racer
+                            } else if (currentRaceData.bestLapTime[1] == bestLapTime[1]) {
+                                if (currentRaceData.bestLapTime[2] < bestLapTime[2]) {
+                                    bestLapTime = currentRaceData.bestLapTime;
+                                    racerWithBestLapTime = currentRaceData.racerAndTeam.racer
+                                }
                             }
                         }
                     }
@@ -117,7 +137,17 @@ export class StandingsComponent implements OnInit {
                         }
                     }
                 }
+                this.addBestLapAndPoint(i, racerWithBestLapTime, bestLapTime);
             }
+        }
+    }
+
+    private addBestLapAndPoint(i: number, racerWithBestLapTime: Racer, bestLapTime: number[]) {
+        this.races[i].racerWithBestLapTime = racerWithBestLapTime;
+        this.races[i].bestLapTime = bestLapTime;
+        let racerTemp = this.racers.find(el => el.id == racerWithBestLapTime.id);
+        if (racerTemp != undefined) {
+            this.racers[racerTemp.id - 1].points++;
         }
     }
 
