@@ -16,10 +16,24 @@
                      [attr.aria-labelledby]="'heading'+(i+100)"
                      data-bs-parent="#myAccordion">
                     <div class="accordion-body">
-                        <div *ngFor="let standings of race.scores, let i = index">
-                            {{standings.position}} {{standings.racerAndTeam.racer.name}} {{standings.racerAndTeam.team.name}}
-                            {{standings.bestLapTime}}
-                        </div>
+                        <table class="table w-100 table-dark table-striped table-hover">
+                            <thead>
+                            <tr class="align-middle text-center">
+                                <th scope="col" class="custom-th-bg">Miejsce</th>
+                                <th scope="col" class="custom-th-bg">Kierowca</th>
+                                <th scope="col" class="custom-th-bg">Drużyna</th>
+                                <th scope="col" class="custom-th-bg">Najlepszy czas</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let standings of race.scores" class="align-middle text-center">
+                                <th scope="row">{{standings.position}}</th>
+                                <td>{{standings.racerAndTeam.racer.name}}</td>
+                                <td>{{standings.racerAndTeam.team.name}}</td>
+                                <td>{{standings.bestLapTime[0] + ':' + standings.bestLapTime[1] + ':' + standings.bestLapTime[2]}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>

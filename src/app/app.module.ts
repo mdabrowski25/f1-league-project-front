@@ -14,6 +14,8 @@ import { UpcomingRacesComponent } from './standings/upcoming-races/upcoming-race
 import { GeneralClassificationComponent } from './standings/general-classification/general-classification.component';
 import { ConstructorsClassificationComponent } from './standings/constructors-classification/constructors-classification.component';
 import { LastRacesComponent } from './standings/last-races/last-races.component';
+import { LoginComponent } from './auth/login/login.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 const routes: Routes = [{
     path: 'generator',
@@ -24,6 +26,9 @@ const routes: Routes = [{
 }, {
     path: 'standings',
     component: StandingsComponent
+}, {
+    path: 'login',
+    component: LoginComponent
 }];
 
 @NgModule({
@@ -36,11 +41,14 @@ const routes: Routes = [{
         UpcomingRacesComponent,
         GeneralClassificationComponent,
         ConstructorsClassificationComponent,
-        LastRacesComponent
+        LastRacesComponent,
+        LoginComponent
     ],
     imports: [
         BrowserModule,
         HttpClientModule,
+        ReactiveFormsModule,
+        FormsModule,
         RouterModule.forRoot(routes),
         FontAwesomeModule
     ],
