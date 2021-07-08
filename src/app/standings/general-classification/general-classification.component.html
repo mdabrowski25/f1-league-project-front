@@ -36,8 +36,11 @@
                                     <span>
                                         Team: {{getRacerStatsFromRace(racer.id, race.id).teamDriven.name}}
                                     </span>
-                                    <span [ngClass]="race.bestLapTime == getRacerStatsFromRace(racer.id, race.id).personalBestLapTime ? 'bestLap' : ''">
-                                       Najlepszy czas: {{getRacerStatsFromRace(racer.id, race.id).personalBestLapTime}}
+                                    <span>
+                                       Najlepszy czas:
+                                        <span [ngClass]="race.bestLapTime == getRacerStatsFromRace(racer.id, race.id).personalBestLapTime ? 'bestLap' : ''">
+                                            {{getRacerStatsFromRace(racer.id, race.id).personalBestLapTime}}
+                                        </span>
                                     </span>
                                     <span>
                                     Punkty: {{getRacerStatsFromRace(racer.id, race.id).driver.points}}
