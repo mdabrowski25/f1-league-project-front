@@ -19,7 +19,7 @@
                      data-bs-parent="#myAccordion">
                     <div class="accordion-body">
                         <div class="d-flex flex-row justify-content-around flex-wrap">
-                            <h4>Pozycja: {{(i + 1)}}</h4>
+                            <h4>Pozycja gen. : {{(i + 1)}}</h4>
                             <h4>Punkty: {{racer.points}}</h4>
                         </div>
                         <div class="list-group">
@@ -29,9 +29,19 @@
                                     <h5 class="mb-1">{{race.name}}</h5>
                                     <small>{{race.date}}</small>
                                 </div>
-                                <p class="mb-1">{{getRacerPosition(racer.id, race.id) + ' ' + getRacerTeam(racer.id, race.id) + ' '}}
-                                    <span [ngClass]="race.bestLapTime == getRacerLapTime(racer.id, race.id) ? 'bestLap' : ''">{{getRacerLapTimeString(racer.id, race.id)}}</span>
-                                    Points: {{getRacerEarnedPoints(racer.id, race.id)}}
+                                <p class="mb-1 d-flex justify-content-around">
+                                    <span>
+                                        Pozycja: {{getRacerStatsFromRace(racer.id, race.id).position}}
+                                    </span>
+                                    <span>
+                                        Team: {{getRacerStatsFromRace(racer.id, race.id).teamDriven.name}}
+                                    </span>
+                                    <span [ngClass]="race.bestLapTime == getRacerStatsFromRace(racer.id, race.id).personalBestLapTime ? 'bestLap' : ''">
+                                       Najlepszy czas: {{getRacerStatsFromRace(racer.id, race.id).personalBestLapTime}}
+                                    </span>
+                                    <span>
+                                    Punkty: {{getRacerStatsFromRace(racer.id, race.id).driver.points}}
+                                    </span>
                                 </p>
                             </a>
                         </div>
