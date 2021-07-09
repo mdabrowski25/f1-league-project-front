@@ -59,7 +59,7 @@ export class StandingsComponent implements OnInit {
             }
             this.races = racesArray;
 
-            this.addPointsToDriversAndTeams()
+            this.addPointsToDriversAndTeams();
 
             this.sortRacersAndTeamsByPoints();
             this.loading = false;

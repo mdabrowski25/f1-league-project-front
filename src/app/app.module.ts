@@ -7,7 +7,7 @@ import { GeneratorComponent } from './generator/generator.component';
 import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
 import { StandingsComponent } from './standings/standings.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { DatePipe } from '@angular/common';
 import { UpcomingRacesComponent } from './standings/upcoming-races/upcoming-races.component';
@@ -16,6 +16,8 @@ import { ConstructorsClassificationComponent } from './standings/constructors-cl
 import { LastRacesComponent } from './standings/last-races/last-races.component';
 import { LoginComponent } from './auth/login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AuthInterceptor } from './services/interceptors/auth-interceptor';
+import { AdminPanelComponent } from './admin-panel/admin-panel.component';
 
 const routes: Routes = [{
     path: 'generator',
@@ -42,7 +44,8 @@ const routes: Routes = [{
         GeneralClassificationComponent,
         ConstructorsClassificationComponent,
         LastRacesComponent,
-        LoginComponent
+        LoginComponent,
+        AdminPanelComponent
     ],
     imports: [
         BrowserModule,
@@ -52,7 +55,14 @@ const routes: Routes = [{
         RouterModule.forRoot(routes),
         FontAwesomeModule
     ],
-    providers: [DatePipe],
+    providers: [
+        DatePipe,
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: AuthInterceptor,
+            multi: true
+        }
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule {
