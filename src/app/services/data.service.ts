@@ -119,6 +119,7 @@ export class DataService {
         for (let i = 0; i < this.races.length; i++) {
             let bestLapTime: number[] = [1000, 1000, 1000];
             let racerWithBestLapTime: Racer = new Racer(0, '');
+            let teamWithBestLapTime: Team = new Team(0, '');
 
             let scores = this.races[i].scores;
             if (scores != undefined) {
@@ -135,14 +136,17 @@ export class DataService {
                         if (currentRaceData.bestLapTime[0] < bestLapTime[0]) {
                             bestLapTime = currentRaceData.bestLapTime;
                             racerWithBestLapTime = currentRaceData.racerAndTeam.racer
+                            teamWithBestLapTime = currentRaceData.racerAndTeam.team
                         } else if (currentRaceData.bestLapTime[0] == bestLapTime[0]) {
                             if (currentRaceData.bestLapTime[1] < bestLapTime[1]) {
                                 bestLapTime = currentRaceData.bestLapTime;
                                 racerWithBestLapTime = currentRaceData.racerAndTeam.racer
+                                teamWithBestLapTime = currentRaceData.racerAndTeam.team
                             } else if (currentRaceData.bestLapTime[1] == bestLapTime[1]) {
                                 if (currentRaceData.bestLapTime[2] < bestLapTime[2]) {
                                     bestLapTime = currentRaceData.bestLapTime;
                                     racerWithBestLapTime = currentRaceData.racerAndTeam.racer
+                                    teamWithBestLapTime = currentRaceData.racerAndTeam.team
                                 }
                             }
                         }
@@ -158,16 +162,18 @@ export class DataService {
                         }
                     }
                 }
-                this.addBestLapAndPoint(i, racerWithBestLapTime, bestLapTime);
+                this.addBestLapAndPoint(i, racerWithBestLapTime, bestLapTime, teamWithBestLapTime);
             }
         }
     }
 
-    private addBestLapAndPoint(i: number, racerWithBestLapTime: Racer, bestLapTime: number[]) {
+    private addBestLapAndPoint(i: number, racerWithBestLapTime: Racer, bestLapTime: number[], teamWithBestLapTime: Team) {
         let racerTemp = this.racers.find(el => el.id == racerWithBestLapTime.id);
-        if (racerTemp != undefined) {
+        let teamTemp = this.teams.find(el => el.id == teamWithBestLapTime.id);
+        if (racerTemp != undefined && teamTemp != undefined) {
             this.racers[racerTemp.id - 1].points++;
             this.races[i].bestLapTime = bestLapTime;
+            this.teams[teamTemp.id - 1].points++;
         }
     }
 
