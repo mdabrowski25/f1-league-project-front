@@ -1,20 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { RacerTeam } from '../shared/model/racer-team.model';
 import { Racer } from '../shared/model/racer.model';
 import { Team } from '../shared/model/team.model';
 import { DataService } from '../services/data.service';
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'app-generator',
     templateUrl: './generator.component.html',
     styleUrls: ['./generator.component.css']
 })
-export class GeneratorComponent implements OnInit {
+export class GeneratorComponent implements OnInit, OnDestroy {
     racers: Racer[] = [];
 
     teams: Team[] = [];
 
     racerTeam: RacerTeam[] = [];
+
+    generatorSubs: Subscription | undefined;
 
     rbCount = 0;
     ferrariCount = 0;
@@ -26,12 +29,18 @@ export class GeneratorComponent implements OnInit {
 
     constructor(private data: DataService) {
         this.data.getData();
-        this.data.getArraysUpdated().subscribe(arrays => {
+        this.generatorSubs = this.data.getArraysUpdated().subscribe(arrays => {
             this.racers = arrays.racers;
             this.teams = arrays.teams;
             this.loading = arrays.loading;
             this.fetchErrorOccurred = arrays.fetchErrorOccurred;
         });
+    }
+
+    ngOnDestroy(): void {
+        if (this.generatorSubs != undefined) {
+            this.generatorSubs.unsubscribe()
+        }
     }
 
     ngOnInit(): void {
@@ -55,7 +64,7 @@ export class GeneratorComponent implements OnInit {
         }
 
         let shuffledTeam = this.teams[randomTeamInt];
-        switch (shuffledTeam.name){
+        switch (shuffledTeam.name) {
             case 'Red Bull Racing': {
                 this.rbCount++;
                 if (this.rbCount === 2) {
