@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Race } from '../../shared/model/race.model';
-import { DatePipe } from '@angular/common';
+import { DataService } from '../../services/data.service';
 
 @Component({
     selector: 'app-upcoming-races',
@@ -8,17 +8,14 @@ import { DatePipe } from '@angular/common';
     styleUrls: ['./upcoming-races.component.css']
 })
 export class UpcomingRacesComponent implements OnInit {
-    racesToCome: Race[] = [
-        new Race(1, 'Meksyk'),
-        new Race(2, 'USA'),
-        new Race(3, 'Brazylia'),
-        new Race(4, 'Abu Zabi')
-    ];
-    constructor(private datePipe: DatePipe) {
+    racesToCome: Race[] = [];
+    constructor(private data: DataService) {
     }
 
     ngOnInit(): void {
-        this.racesToCome[0].date = this.datePipe.transform(new Date(2021, 7 - 1, 4, 20), 'dd-MM-yyyy HH:mm');
+        this.data.getArraysUpdated().subscribe(arrays => {
+            this.racesToCome = arrays.racesToCome;
+        });
     }
 
     showDate(race: Race) {

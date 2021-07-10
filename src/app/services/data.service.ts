@@ -16,9 +16,10 @@ export class DataService {
     races: Race[] = [];
     racers: Racer[] = [];
     teams: Team[] = [];
+    upcomingRaces: Race[] = [];
     loading: boolean = false;
     fetchErrorOccurred: boolean = false;
-    private arraysUpdated = new Subject<{ races: Race[], racers: Racer[], teams: Team[], loading: boolean, fetchErrorOccurred: boolean }>()
+    private arraysUpdated = new Subject<{ races: Race[], racers: Racer[], teams: Team[], racesToCome: Race[], loading: boolean, fetchErrorOccurred: boolean }>()
 
     constructor(private http: HttpService) {
     }
@@ -27,9 +28,11 @@ export class DataService {
         this.observables.push(this.http.getRacers());
         this.observables.push(this.http.getTeams());
         this.observables.push(this.http.getRaces());
+        this.observables.push(this.http.getUpcomingRaces());
 
         this.loading = true;
-        forkJoin(this.observables).subscribe(([dataRacers, dataTeams, dataRaces]) => {
+        forkJoin(this.observables).subscribe(([dataRacers, dataTeams, dataRaces, dataUpcomingRaces]) => {
+            this.upcomingRaces = dataUpcomingRaces.upcomingRaces;
             this.racers = dataRacers.racers;
             this.teams = dataTeams.teams;
             this.sortRacersAndTeamsByIds();
@@ -65,6 +68,7 @@ export class DataService {
                 races: [...this.races],
                 racers: [...this.racers],
                 teams: [...this.teams],
+                racesToCome: [...this.upcomingRaces],
                 loading: this.loading,
                 fetchErrorOccurred: this.fetchErrorOccurred
             });
@@ -74,6 +78,7 @@ export class DataService {
                 races: [...this.races],
                 racers: [...this.racers],
                 teams: [...this.teams],
+                racesToCome: [...this.upcomingRaces],
                 loading: this.loading,
                 fetchErrorOccurred: this.fetchErrorOccurred
             });
@@ -83,6 +88,7 @@ export class DataService {
     getArraysUpdated() {
         return this.arraysUpdated.asObservable();
     }
+
     private sortRacersAndTeamsByIds() {
         this.racers.sort((a, b) => {
             if (a.id < b.id) {

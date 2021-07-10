@@ -53,6 +53,10 @@ export class HttpService {
         }>(this.GET_URL + '/races');
     }
 
+    getUpcomingRaces() {
+        return this.httpClient.get(this.GET_URL + '/upcoming-races');
+    }
+
     getRacer(id: number) {
         return this.httpClient.get(this.GET_URL + '/racer' + id);
     }
