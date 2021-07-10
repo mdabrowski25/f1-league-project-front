@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Race } from '../../shared/model/race.model';
+import { DataService } from '../../services/data.service';
 
 @Component({
     selector: 'app-last-races',
@@ -7,12 +8,15 @@ import { Race } from '../../shared/model/race.model';
     styleUrls: ['./last-races.component.css']
 })
 export class LastRacesComponent implements OnInit {
-    @Input() races: Race[] = [];
+    races: Race[] = [];
 
-    constructor() {
+    constructor(private data: DataService) {
     }
 
     ngOnInit(): void {
+        this.data.getArraysUpdated().subscribe(arrays => {
+            this.races = arrays.races;
+        });
     }
 
 }

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RacerTeam } from '../shared/model/racer-team.model';
 import { Racer } from '../shared/model/racer.model';
 import { Team } from '../shared/model/team.model';
-import { HttpService } from '../services/http.service';
+import { DataService } from '../services/data.service';
 
 @Component({
     selector: 'app-generator',
@@ -21,29 +21,20 @@ export class GeneratorComponent implements OnInit {
     renaultCount = 0;
     mercedesCount = 0;
     mcLarenCount = 0;
-    loadingRacers: boolean = false;
-    loadingTeams: boolean = false;
-    racersFetchErrorOccurred: boolean = false;
-    teamsFetchErrorOccurred: boolean = false;
+    loading: boolean = false;
+    fetchErrorOccurred: boolean = false;
 
-    constructor(private http: HttpService) {
+    constructor(private data: DataService) {
+        this.data.getData();
+        this.data.getArraysUpdated().subscribe(arrays => {
+            this.racers = arrays.racers;
+            this.teams = arrays.teams;
+            this.loading = arrays.loading;
+            this.fetchErrorOccurred = arrays.fetchErrorOccurred;
+        });
     }
 
     ngOnInit(): void {
-        this.loadingRacers = true;
-        this.http.getRacers().subscribe((data) => {
-            this.loadingRacers = false;
-            this.racers = data.racers;
-        }, () => {
-            this.racersFetchErrorOccurred = true;
-        });
-        this.loadingTeams = true
-        this.http.getTeams().subscribe(data => {
-            this.teams = data.teams;
-            this.loadingTeams = false;
-        }, () => {
-            this.teamsFetchErrorOccurred = true;
-        });
     }
 
     shuffleRacerAndTeam(): void {

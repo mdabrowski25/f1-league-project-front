@@ -1,7 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Race } from '../../shared/model/race.model';
 import { Racer } from '../../shared/model/racer.model';
 import { RaceStats } from '../../shared/model/racestats.model';
+import { DataService } from '../../services/data.service';
 
 @Component({
     selector: 'app-general-classification',
@@ -9,15 +10,19 @@ import { RaceStats } from '../../shared/model/racestats.model';
     styleUrls: ['./general-classification.component.css']
 })
 export class GeneralClassificationComponent implements OnInit {
-    @Input() races: Race[] = [];
-    @Input() racers: Racer[] = [];
+    races: Race[] = [];
+    racers: Racer[] = [];
     allRacesStats: RaceStats[] = [];
 
-    constructor() {
+    constructor(private data: DataService) {
     }
 
     ngOnInit(): void {
-        this.getAllRacesStats()
+        this.data.getArraysUpdated().subscribe(arrays => {
+            this.races = arrays.races;
+            this.racers = arrays.racers;
+            this.getAllRacesStats()
+        });
     }
 
     getAllRacesStats() {

@@ -29,7 +29,7 @@
                 <div class="row">
                     <div class="col-6">
                         <table class="table w-100 table-dark table-striped table-hover"
-                               *ngIf="racers.length !== 0 && loadingRacers != true">
+                               *ngIf="racers.length !== 0 && loading != true">
                             <thead>
                             <tr class="align-middle text-center">
                                 <th scope="col" class="custom-th-bg round-top-left">#</th>
@@ -47,13 +47,13 @@
                             </tr>
                             </tbody>
                         </table>
-                        <p *ngIf="racers.length === 0 && !racersFetchErrorOccurred && !loadingRacers" class="info-p">Brak pozostałych
+                        <p *ngIf="racers.length === 0 && !fetchErrorOccurred && !loading" class="info-p">Brak pozostałych
                             graczy</p>
                         <div class="d-flex justify-content-center">
-                            <div class="spinner-border text-light" role="status" *ngIf="loadingRacers && !racersFetchErrorOccurred">
+                            <div class="spinner-border text-light" role="status" *ngIf="loading && !fetchErrorOccurred">
                                 <span class="visually-hidden">Loading...</span>
                             </div>
-                            <div *ngIf="racersFetchErrorOccurred" class="text-white ">
+                            <div *ngIf="fetchErrorOccurred" class="text-white ">
                                 <p>
                                     Database error, contact page owner
                                 </p>
@@ -62,7 +62,7 @@
                     </div>
                     <div class="col-6">
                         <table class="table w-100 table-dark table-striped table-hover"
-                               *ngIf="teams.length !== 0 && loadingTeams != true">
+                               *ngIf="teams.length !== 0 && loading != true">
                             <thead>
                             <tr class="align-middle text-center">
                                 <th scope="col" class="custom-th-bg round-top-left">#</th>
@@ -80,13 +80,13 @@
                             </tr>
                             </tbody>
                         </table>
-                        <p *ngIf="teams.length === 0 && !teamsFetchErrorOccurred && !loadingTeams" class="info-p">Brak pozostałych
+                        <p *ngIf="teams.length === 0 && !fetchErrorOccurred && !loading" class="info-p">Brak pozostałych
                             teamów</p>
                         <div class="d-flex justify-content-center">
-                            <div class="spinner-border text-light" role="status" *ngIf="loadingTeams && !teamsFetchErrorOccurred">
+                            <div class="spinner-border text-light" role="status" *ngIf="loading && !fetchErrorOccurred">
                                 <span class="visually-hidden">Loading...</span>
                             </div>
-                            <div *ngIf="teamsFetchErrorOccurred" class="text-white ">
+                            <div *ngIf="fetchErrorOccurred" class="text-white ">
                                 <p>
                                     Database error, contact page owner
                                 </p>

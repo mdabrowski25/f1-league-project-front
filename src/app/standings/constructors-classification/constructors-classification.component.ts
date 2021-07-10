@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Team } from '../../shared/model/team.model';
+import { DataService } from '../../services/data.service';
 
 @Component({
     selector: 'app-constructors-classification',
@@ -7,12 +8,15 @@ import { Team } from '../../shared/model/team.model';
     styleUrls: ['./constructors-classification.component.css']
 })
 export class ConstructorsClassificationComponent implements OnInit {
-    @Input() teams: Team[] = [];
+    teams: Team[] = [];
 
-    constructor() {
+    constructor(private data: DataService) {
     }
 
     ngOnInit(): void {
+        this.data.getArraysUpdated().subscribe(arrays => {
+            this.teams = arrays.teams;
+        });
     }
 
 }
