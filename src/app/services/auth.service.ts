@@ -24,6 +24,7 @@ export class AuthService {
     }
 
     logout() {
+        this.token = undefined;
         this.authStatusListener.next(false);
     }
 

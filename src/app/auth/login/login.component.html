@@ -10,7 +10,10 @@
                     <label for="exampleInputPassword1" class="form-label">Password</label>
                     <input type="password" name="password" class="form-control" #passwordInput="ngModel" id="exampleInputPassword1" ngModel required>
                 </div>
-                <button type="submit" class="btn btn-primary">Login</button>
+                <button type="submit" class="btn btn-primary" *ngIf="!isLoading">Login</button>
+                <div class="spinner-border text-light" role="status" *ngIf="isLoading">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
             </form>
         </div>
     </div>

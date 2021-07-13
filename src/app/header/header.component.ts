@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { faBars } from '@fortawesome/free-solid-svg-icons/faBars';
 import { AuthService } from '../services/auth.service';
 import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-header',
@@ -13,7 +14,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     userLogged: boolean = false;
     authListenerSubs: Subscription | undefined;
 
-    constructor(private auth: AuthService) {
+    constructor(private auth: AuthService, private router: Router) {
     }
 
     ngOnInit(): void {
@@ -28,5 +29,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
     logout() {
         this.auth.logout();
+        this.router.navigate(['/']).then();
     }
 }

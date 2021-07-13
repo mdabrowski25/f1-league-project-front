@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
     styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+    isLoading = false;
 
     constructor(private authService: AuthService, private router: Router) {
     }
@@ -20,7 +21,9 @@ export class LoginComponent implements OnInit {
       if(form.invalid) {
           return;
       }
+      this.isLoading = true;
       this.authService.login(form.value.email, form.value.password);
+      this.isLoading = false;
       this.router.navigate(['/']).then();
     }
 }
