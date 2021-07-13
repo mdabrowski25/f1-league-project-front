@@ -17,8 +17,14 @@ export class AuthService {
         const authData = {email: email, password: password};
         this.http.post<{ token: string }>(this.POST_URL + '/login', authData).subscribe(res => {
             this.token = res.token;
-            this.authStatusListener.next(true);
+            if (this.token) {
+                this.authStatusListener.next(true);
+            }
         });
+    }
+
+    logout() {
+        this.authStatusListener.next(false);
     }
 
     getToken() {
