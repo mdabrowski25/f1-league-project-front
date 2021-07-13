@@ -22,14 +22,51 @@ export class AuthService {
             this.token = res.token;
             if (this.token) {
                 const expiresInDuration = res.expiresIn;
-                this.tokenTimer = window.setTimeout(() => {
-                    this.logout();
-                    alert("Sesja wygasła");
-                }, expiresInDuration * 1000);
+                this.setAuthTimer(expiresInDuration);
                 this.isLogged = true;
                 this.authStatusListener.next(true);
+                const now = new Date();
+                const expirationDate = new Date(now.getTime() + expiresInDuration * 1000);
+                this.saveAuthData(this.token, expirationDate)
             }
         });
+    }
+
+    autoAuthUser() {
+        const authInfo = AuthService.getAuthData();
+        const now = new Date();
+        if (!authInfo) {
+            return;
+        }
+        const expiresIn = authInfo.expirationDate.getTime() - now.getTime();
+        if (expiresIn > 0) {
+            this.token = authInfo.token;
+            this.isLogged = true;
+            this.setAuthTimer(expiresIn / 1000);
+            this.authStatusListener.next(true);
+        }
+
+
+    }
+
+    private static getAuthData(): { token: string, expirationDate: Date } | undefined {
+        const token = localStorage.getItem('token');
+        const expirationDate = localStorage.getItem('expiration');
+        if (!token || !expirationDate) {
+            return;
+        }
+        return {
+            token: token,
+            expirationDate: new Date(expirationDate)
+        }
+    }
+
+    private setAuthTimer(duration: number) {
+        //duration in seconds
+        this.tokenTimer = window.setTimeout(() => {
+            this.logout();
+            alert("Sesja wygasła");
+        }, duration * 1000);
     }
 
     logout() {
@@ -37,6 +74,7 @@ export class AuthService {
         this.isLogged = false;
         this.authStatusListener.next(false);
         clearTimeout(this.tokenTimer);
+        AuthService.clearAuthData();
         this.router.navigate(['/']).then();
     }
 
@@ -50,5 +88,15 @@ export class AuthService {
 
     userIsLogged(): boolean {
         return this.isLogged;
+    }
+
+    saveAuthData(token: string, expirationDate: Date) {
+        localStorage.setItem('token', token);
+        localStorage.setItem('expiration', expirationDate.toISOString());
+    }
+
+    private static clearAuthData() {
+        localStorage.removeItem('token');
+        localStorage.removeItem('expiration');
     }
 }
