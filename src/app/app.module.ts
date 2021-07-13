@@ -22,6 +22,7 @@ import { AddRaceHighlightsComponent } from './admin-panel/add-race-highlights/ad
 import { AddDriverComponent } from './admin-panel/add-driver/add-driver.component';
 import { AddRaceComponent } from './admin-panel/add-race/add-race.component';
 import { AddTeamComponent } from './admin-panel/add-team/add-team.component';
+import { AuthGuard } from './services/guards/auth.guard';
 
 const routes: Routes = [{
     path: 'generator',
@@ -38,6 +39,7 @@ const routes: Routes = [{
 }, {
     path: 'admin-panel',
     component: AdminPanelComponent,
+    canActivate: [AuthGuard],
     children: [
         {
             path: 'add/race-highlights',
@@ -90,7 +92,8 @@ const routes: Routes = [{
             provide: HTTP_INTERCEPTORS,
             useClass: AuthInterceptor,
             multi: true
-        }
+        },
+        AuthGuard
     ],
     bootstrap: [AppComponent]
 })
