@@ -4,6 +4,8 @@ import { Racer } from '../shared/model/racer.model';
 import { Team } from '../shared/model/team.model';
 import { Race } from '../shared/model/race.model';
 import { RacesDto } from '../shared/dto/races-dto.model';
+import { UpcomingRaceDto } from '../shared/dto/upcoming-race-dto.model';
+import { Router } from '@angular/router';
 
 @Injectable({
     providedIn: 'root'
@@ -12,7 +14,7 @@ export class HttpService {
     POST_URL = 'http://localhost:3000/api/post';
     GET_URL = 'http://localhost:3000/api/get';
 
-    constructor(private httpClient: HttpClient) {
+    constructor(private httpClient: HttpClient, private router: Router) {
     }
 
     postRacer(racer: Racer) {
@@ -37,6 +39,14 @@ export class HttpService {
         }, (err) => {
             console.error(err);
         })
+    }
+
+    postUpcomingRace(upcomingRace: UpcomingRaceDto) {
+        return this.httpClient.post<UpcomingRaceDto>(this.POST_URL + '/upcoming-race', upcomingRace).subscribe(() => {
+            this.router.navigate(['/']).then(() => alert('Nadchodzący wyścig dodany'));
+        }, () => {
+            this.router.navigate(['/']).then(() => alert('Wystąpił błąd'));
+        });
     }
 
     getRacers() {
