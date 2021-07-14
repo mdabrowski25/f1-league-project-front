@@ -1,1 +1,15 @@
-<p>add-race-highlights works!</p>
+<div class="container-fluid">
+    <div class="row">
+        <div class="d-flex align-content-start">
+            <form [formGroup]="raceForm" (ngSubmit)="onSubmit()" method="post">
+                <label class="text-light" for="raceName">Nazwa: </label>
+                <input class="form-control mb-3" id="raceName" type="text" formControlName="raceName">
+
+                <button type="submit" class="btn btn-dark btn-outline-light w-100"
+                        [disabled]="!(raceForm.controls['raceName'].touched && raceForm.controls['raceName'].valid)">
+                    Dodaj
+                </button>
+            </form>
+        </div>
+    </div>
+</div>

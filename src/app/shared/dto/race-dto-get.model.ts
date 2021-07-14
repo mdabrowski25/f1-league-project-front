@@ -1,4 +1,4 @@
-export class RacesDto {
+export class RaceDtoGet {
     id: number;
     name: string;
     date: string;

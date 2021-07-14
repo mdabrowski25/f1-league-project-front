@@ -2,8 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Racer } from '../shared/model/racer.model';
 import { Team } from '../shared/model/team.model';
-import { Race } from '../shared/model/race.model';
-import { RacesDto } from '../shared/dto/races-dto.model';
+import { RaceDtoGet } from '../shared/dto/race-dto-get.model';
 import { UpcomingRaceDto } from '../shared/dto/upcoming-race-dto.model';
 import { Router } from '@angular/router';
 import { RacerDto } from '../shared/dto/racer-dto.model';
@@ -35,12 +34,12 @@ export class HttpService {
         });
     }
 
-    postRace(race: Race) {
-        this.httpClient.post<Race>(this.POST_URL + '/race', race).subscribe(() => {
-            console.log('post successful');
-        }, (err) => {
-            console.error(err);
-        })
+    postRace(race: RaceDtoGet) {
+        this.httpClient.post<RaceDtoGet>(this.POST_URL + '/race', race).subscribe(() => {
+            this.router.navigate(['/']).then(() => alert('Wyścig z wynikami dodany'));
+        }, () => {
+            this.router.navigate(['/']).then(() => alert('Wystąpił błąd'));
+        });
     }
 
     postUpcomingRace(upcomingRace: UpcomingRaceDto) {
@@ -61,7 +60,7 @@ export class HttpService {
 
     getRaces() {
         return this.httpClient.get<{
-            races: [racesDto: RacesDto]
+            races: [racesDto: RaceDtoGet]
         }>(this.GET_URL + '/races');
     }
 

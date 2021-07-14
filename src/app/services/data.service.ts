@@ -4,7 +4,7 @@ import { forkJoin, Observable, Subject } from 'rxjs';
 import { Race } from '../shared/model/race.model';
 import { Racer } from '../shared/model/racer.model';
 import { Team } from '../shared/model/team.model';
-import { RacesDto } from '../shared/dto/races-dto.model';
+import { RaceDtoGet } from '../shared/dto/race-dto-get.model';
 import { RacerTeam } from '../shared/model/racer-team.model';
 import { RaceData } from '../shared/model/racedata.model';
 
@@ -37,7 +37,7 @@ export class DataService {
             this.teams = dataTeams.teams;
             this.sortRacersAndTeamsByIds();
 
-            let racesFromDb: RacesDto[] = dataRaces.races;
+            let racesFromDb: RaceDtoGet[] = dataRaces.races;
             let racesArray: Race[] = [];
 
             for (let i = 0; i < racesFromDb.length; i++) {
