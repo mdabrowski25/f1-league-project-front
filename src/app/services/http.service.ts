@@ -7,6 +7,7 @@ import { RacesDto } from '../shared/dto/races-dto.model';
 import { UpcomingRaceDto } from '../shared/dto/upcoming-race-dto.model';
 import { Router } from '@angular/router';
 import { RacerDto } from '../shared/dto/racer-dto.model';
+import { TeamDto } from '../shared/dto/team-dto.model';
 
 @Injectable({
     providedIn: 'root'
@@ -26,12 +27,12 @@ export class HttpService {
         });
     }
 
-    postTeam(team: Team) {
-        this.httpClient.post<Team>(this.POST_URL + '/team', team).subscribe(() => {
-            console.log('post successful');
-        }, (err) => {
-            console.error(err);
-        })
+    postTeam(team: TeamDto) {
+        this.httpClient.post<TeamDto>(this.POST_URL + '/team', team).subscribe(() => {
+            this.router.navigate(['/']).then(() => alert('Drużyna dodana'));
+        }, () => {
+            this.router.navigate(['/']).then(() => alert('Wystąpił błąd'));
+        });
     }
 
     postRace(race: Race) {

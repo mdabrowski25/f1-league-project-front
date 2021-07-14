@@ -1,1 +1,15 @@
-<p>add-team works!</p>
+<div class="container-fluid">
+    <div class="row">
+        <div class="d-flex align-content-start">
+            <form [formGroup]="teamForm" (ngSubmit)="onSubmit()" method="post">
+                <label class="text-light" for="teamName">Nazwa: </label>
+                <input class="form-control mb-3" id="teamName" type="text" formControlName="teamName" (click)="this.teamForm.markAllAsTouched()">
+
+                <button type="submit" class="btn btn-dark btn-outline-light w-100"
+                        [disabled]="!(teamForm.controls['teamName'].touched && teamForm.controls['teamName'].valid)">
+                    Dodaj
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
