@@ -1,15 +1,42 @@
 <div class="container-fluid">
     <div class="row">
-        <div class="d-flex align-content-start">
-            <form [formGroup]="raceForm" (ngSubmit)="onSubmit()" method="post">
-                <label class="text-light" for="raceName">Nazwa: </label>
-                <input class="form-control mb-3" id="raceName" type="text" formControlName="raceName">
+        <form [formGroup]="raceForm" (ngSubmit)="onSubmit()" method="post">
+            <div class="row">
+                <div class="col-md-3 me-3">
+                    <div *ngFor="let racer of racers; let i = index" class="pb-1">
+                        <div class="row">
+                            <label [attr.for]="'gridPos'+i"
+                                   class="form-label text-light fw-bold fs-3">Pozycja: {{i + 1}}</label>
+                            <select class="form-select" [attr.id]="'gridPos'+i" [formControlName]="'gridPos'+i">
+                                <option *ngFor="let racer2 of racers" [value]="racer2.id">{{racer2.name}}</option>
+                            </select>
+                            <label [attr.for]="'teamSelect'+i" class="form-label text-light"></label>
+                            <select class="form-select" [attr.id]="'teamSelect'+i" [formControlName]="'teamSelect'+i">
+                                <option *ngFor="let team of teams" [value]="team.id">{{team.name}}</option>
+                            </select>
+                            <label [attr.for]="'bestLapTime'+i" class="form-label text-light"></label>
+                            <input [attr.id]="'bestLapTime'+i" class="form-control" type="text"
+                                   [formControlName]="'bestLapTime'+i" placeholder="1:11:111">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 mt-3 ms-3">
+                    <div class="row">
+                        <label class="form-label text-light" for="raceName">Nazwa wyścigu: </label>
+                        <input class="form-control mb-3" id="raceName" type="text" [formControl]="raceName">
 
-                <button type="submit" class="btn btn-dark btn-outline-light w-100"
-                        [disabled]="!(raceForm.controls['raceName'].touched && raceForm.controls['raceName'].valid)">
-                    Dodaj
-                </button>
-            </form>
-        </div>
+                        <label class="text-light" for="raceDate">Data i godzina: </label>
+                        <input class="form-control mb-3" id="raceDate" type="datetime-local"
+                               [formControl]="raceDate"
+                               (click)="markAsTouched('raceDate')">
+                    </div>
+                    <button type="submit" class="btn btn-dark btn-outline-light w-100"
+                            [disabled]="submitDisabled()">
+                        Dodaj
+                    </button>
+                </div>
+            </div>
+        </form>
+
     </div>
 </div>
