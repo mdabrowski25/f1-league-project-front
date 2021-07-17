@@ -7,16 +7,18 @@
                         <div class="row">
                             <label [attr.for]="'gridPos'+i"
                                    class="form-label text-light fw-bold fs-3">Pozycja: {{i + 1}}</label>
-                            <select class="form-select" [attr.id]="'gridPos'+i" [formControlName]="'gridPos'+i">
+                            <select class="form-select" [attr.id]="'gridPos'+i" [(ngModel)]="grid[i].racerId"
+                                    [ngModelOptions]="{standalone: true}">
                                 <option *ngFor="let racer2 of racers" [value]="racer2.id">{{racer2.name}}</option>
                             </select>
                             <label [attr.for]="'teamSelect'+i" class="form-label text-light"></label>
-                            <select class="form-select" [attr.id]="'teamSelect'+i" [formControlName]="'teamSelect'+i">
+                            <select class="form-select" [attr.id]="'teamSelect'+i" [(ngModel)]="grid[i].teamId"
+                                    [ngModelOptions]="{standalone: true}">
                                 <option *ngFor="let team of teams" [value]="team.id">{{team.name}}</option>
                             </select>
                             <label [attr.for]="'bestLapTime'+i" class="form-label text-light"></label>
-                            <input [attr.id]="'bestLapTime'+i" class="form-control" type="text"
-                                   [formControlName]="'bestLapTime'+i" placeholder="1:11:111">
+                            <input [attr.id]="'bestLapTime'+i" class="form-control" type="text" placeholder="1:11:111"
+                                   [(ngModel)]="grid[i].bestLapTime" [ngModelOptions]="{standalone: true}">
                         </div>
                     </div>
                 </div>

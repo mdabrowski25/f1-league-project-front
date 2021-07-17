@@ -7,6 +7,7 @@ import { UpcomingRaceDto } from '../shared/dto/upcoming-race-dto.model';
 import { Router } from '@angular/router';
 import { RacerDto } from '../shared/dto/racer-dto.model';
 import { TeamDto } from '../shared/dto/team-dto.model';
+import { RaceDtoPost } from '../shared/dto/race-dto-post.model';
 
 @Injectable({
     providedIn: 'root'
@@ -34,8 +35,8 @@ export class HttpService {
         });
     }
 
-    postRace(race: RaceDtoGet) {
-        this.httpClient.post<RaceDtoGet>(this.POST_URL + '/race', race).subscribe(() => {
+    postRace(race: RaceDtoPost) {
+        this.httpClient.post<RaceDtoPost>(this.POST_URL + '/race', race).subscribe(() => {
             this.router.navigate(['/']).then(() => alert('Wyścig z wynikami dodany'));
         }, () => {
             this.router.navigate(['/']).then(() => alert('Wystąpił błąd'));

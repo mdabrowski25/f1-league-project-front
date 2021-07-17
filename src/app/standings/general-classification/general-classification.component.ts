@@ -23,7 +23,7 @@ export class GeneralClassificationComponent implements OnInit, OnDestroy {
         this.classificationSubs = this.data.getArraysUpdated().subscribe(arrays => {
             this.races = arrays.races;
             this.racers = arrays.racers;
-            this.getAllRacesStats()
+            this.getAllRacesStats();
         });
     }
 
@@ -33,7 +33,7 @@ export class GeneralClassificationComponent implements OnInit, OnDestroy {
             let scores = this.races[i].scores;
             let name = this.races[i].name;
             let date = this.races[i].date;
-            let raceId = this.races[i].id
+            let raceId = this.races[i].id;
             if (scores != undefined && date != undefined) {
                 for (let j = 0; j < scores.length; j++) {
                     let racerStatObj = new RaceStats(
