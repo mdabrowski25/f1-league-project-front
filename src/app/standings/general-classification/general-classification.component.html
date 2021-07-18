@@ -31,19 +31,19 @@
                                 </div>
                                 <p class="mb-1 d-flex justify-content-around">
                                     <span>
-                                        Pozycja: {{getRacerStatsFromRace(racer.id, race.id).position}}
+                                        Pozycja: {{getRacerPositionInRace(racer, race)}}
                                     </span>
                                     <span>
-                                        Team: {{getRacerStatsFromRace(racer.id, race.id).teamDriven.name}}
+                                        Team: {{getRacerTeamInRace(racer, race)}}
                                     </span>
                                     <span>
                                        Najlepszy czas:
-                                        <span [ngClass]="race.bestLapTime == getRacerStatsFromRace(racer.id, race.id).personalBestLapTime ? 'bestLap' : ''">
-                                            {{getRacerStatsFromRace(racer.id, race.id).personalBestLapTime}}
+                                        <span [ngClass]="getRacerBestLapTimeInRace(racer, race).bestOverall ? 'bestLap' : ''">
+                                            {{getRacerBestLapTimeInRace(racer, race).bestLap}}
                                         </span>
                                     </span>
                                     <span>
-                                    Punkty: {{getRacerStatsFromRace(racer.id, race.id).driver.points}}
+                                    Punkty: {{getRacerPointsGot(racer, race)}}
                                     </span>
                                 </p>
                             </a>

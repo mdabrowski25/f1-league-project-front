@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Race } from '../../shared/model/race.model';
 import { Racer } from '../../shared/model/racer.model';
-import { RaceStats } from '../../shared/model/racestats.model';
 import { DataService } from '../../services/data.service';
 import { Subscription } from 'rxjs';
 
@@ -13,7 +12,6 @@ import { Subscription } from 'rxjs';
 export class GeneralClassificationComponent implements OnInit, OnDestroy {
     races: Race[] = [];
     racers: Racer[] = [];
-    allRacesStats: RaceStats[] = [];
     classificationSubs: Subscription | undefined;
 
     constructor(private data: DataService) {
@@ -23,47 +21,63 @@ export class GeneralClassificationComponent implements OnInit, OnDestroy {
         this.classificationSubs = this.data.getArraysUpdated().subscribe(arrays => {
             this.races = arrays.races;
             this.racers = arrays.racers;
-            this.getAllRacesStats();
         });
     }
 
-    getAllRacesStats() {
-        let raceStats: RaceStats[] = [];
-        for (let i = 0; i < this.races.length; i++) {
-            let scores = this.races[i].scores;
-            let name = this.races[i].name;
-            let date = this.races[i].date;
-            let raceId = this.races[i].id;
-            if (scores != undefined && date != undefined) {
-                for (let j = 0; j < scores.length; j++) {
-                    let racerStatObj = new RaceStats(
-                       raceId, name, date, scores[j].bestLapTime, scores[j].racerAndTeam.team, scores[j].racerAndTeam.racer, scores[j].position
-                    );
-                    raceStats.push(racerStatObj);
-                }
-            }
+    getRacerPositionInRace(racer: Racer, race: Race) {
+        if (!race.scores) {
+            return;
         }
-        this.allRacesStats = raceStats;
-    }
-
-    getRacersStatsFromRace(raceId: number) {
-        let raceStats1 = this.allRacesStats.filter(race => race.raceId == raceId).slice();
-        raceStats1.sort((a, b) => {
-            if (a.driver.id > b.driver.id) {
-                return 1;
-            } else if (a.driver.id == b.driver.id) {
-                return 0;
-            } else {
-                return -1;
-            }
+        let find = race.scores.find(el => {
+            return el.racerAndTeam.racer.id === racer.id
         });
-        return raceStats1;
+        if (!find) {
+            return;
+        }
+        return find.position;
     }
 
-    getRacerStatsFromRace(racerId: number, raceId: number) {
-        let racersStatsFromRace = this.getRacersStatsFromRace(raceId);
-        return racersStatsFromRace[racerId - 1];
+    getRacerTeamInRace(racer: Racer, race: Race) {
+        if (!race.scores) {
+            return;
+        }
+        let find = race.scores.find(el => {
+            return el.racerAndTeam.racer.id === racer.id
+        });
+        if (!find) {
+            return;
+        }
+        return find.racerAndTeam.team.name;
     }
+
+    getRacerBestLapTimeInRace(racer: Racer, race: Race): {bestLap: string, bestOverall: boolean} {
+        if (!race.scores) {
+            return {bestLap: '', bestOverall: false};
+        }
+        let find = race.scores.find(el => {
+            return el.racerAndTeam.racer.id === racer.id
+        });
+        if (!find) {
+            return {bestLap: '', bestOverall: false};
+        }
+        let bestLapTime = find.bestLapTime;
+        let bestLapTimeString = bestLapTime[0] + ':' + bestLapTime[1] + ':' + bestLapTime[2];
+        return {bestLap: bestLapTimeString, bestOverall: race.bestLapTime === find.bestLapTime}
+    }
+
+    getRacerPointsGot(racer: Racer, race: Race) {
+        const pointsArray: number[] = [25, 18, 15, 12, 10, 8, 6, 4, 2, 1];
+        let position = this.getRacerPositionInRace(racer, race);
+        if (!position){
+            return;
+        }
+        let bestOverall = this.getRacerBestLapTimeInRace(racer, race).bestOverall;
+        if (bestOverall) {
+            return pointsArray[position - 1] + 1;
+        }
+        return pointsArray[position - 1];
+    }
+
 
     ngOnDestroy(): void {
         if (this.classificationSubs != undefined) {
