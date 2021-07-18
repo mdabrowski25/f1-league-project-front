@@ -18,11 +18,12 @@ import { LoginComponent } from './auth/login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthInterceptor } from './services/interceptors/auth-interceptor';
 import { AdminPanelComponent } from './admin-panel/admin-panel.component';
-import { AddRaceHighlightsComponent } from './admin-panel/add-race-highlights/add-race-highlights.component';
-import { AddDriverComponent } from './admin-panel/add-driver/add-driver.component';
-import { AddRaceComponent } from './admin-panel/add-race/add-race.component';
-import { AddTeamComponent } from './admin-panel/add-team/add-team.component';
+import { AddRaceHighlightsComponent } from './admin-panel/add/add-race-highlights/add-race-highlights.component';
+import { AddDriverComponent } from './admin-panel/add/add-driver/add-driver.component';
+import { AddRaceComponent } from './admin-panel/add/add-race/add-race.component';
+import { AddTeamComponent } from './admin-panel/add/add-team/add-team.component';
 import { AuthGuard } from './services/guards/auth.guard';
+import { EditRaceComponent } from './admin-panel/edit/edit-race/edit-race.component';
 
 const routes: Routes = [{
     path: 'generator',
@@ -76,7 +77,8 @@ const routes: Routes = [{
         AddRaceHighlightsComponent,
         AddDriverComponent,
         AddRaceComponent,
-        AddTeamComponent
+        AddTeamComponent,
+        EditRaceComponent
     ],
     imports: [
         BrowserModule,

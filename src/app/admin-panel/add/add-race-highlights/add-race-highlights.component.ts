@@ -1,13 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { RaceDtoPost } from '../../shared/dto/race-dto-post.model';
-import { Racer } from '../../shared/model/racer.model';
+import { RaceDtoPost } from '../../../shared/dto/race-dto-post.model';
+import { Racer } from '../../../shared/model/racer.model';
 import { Subscription } from 'rxjs';
-import { DataService } from '../../services/data.service';
-import { Team } from '../../shared/model/team.model';
-import { Grid } from '../../shared/model/grid.model';
+import { DataService } from '../../../services/data.service';
+import { Team } from '../../../shared/model/team.model';
+import { Grid } from '../../../shared/model/grid.model';
 import { DatePipe } from '@angular/common';
-import { HttpService } from '../../services/http.service';
+import { HttpService } from '../../../services/http.service';
 
 @Component({
     selector: 'app-add-race-highlights',

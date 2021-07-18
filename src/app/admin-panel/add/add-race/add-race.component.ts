@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DatePipe } from '@angular/common';
-import { HttpService } from '../../services/http.service';
-import { UpcomingRaceDto } from '../../shared/dto/upcoming-race-dto.model';
+import { HttpService } from '../../../services/http.service';
+import { UpcomingRaceDto } from '../../../shared/dto/upcoming-race-dto.model';
 
 @Component({
     selector: 'app-add-race',

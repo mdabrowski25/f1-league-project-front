@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { HttpService } from '../../services/http.service';
-import { TeamDto } from '../../shared/dto/team-dto.model';
+import { HttpService } from '../../../services/http.service';
+import { TeamDto } from '../../../shared/dto/team-dto.model';
 
 @Component({
   selector: 'app-add-team',

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { RacerDto } from '../../shared/dto/racer-dto.model';
-import { HttpService } from '../../services/http.service';
+import { RacerDto } from '../../../shared/dto/racer-dto.model';
+import { HttpService } from '../../../services/http.service';
 
 
 @Component({
