@@ -57,6 +57,10 @@ const routes: Routes = [{
         {
             path: 'add/team',
             component: AddTeamComponent
+        },
+        {
+            path: 'edit/race',
+            component: EditRaceComponent
         }
     ]
 }];

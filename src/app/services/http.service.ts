@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { RacerDto } from '../shared/dto/racer-dto.model';
 import { TeamDto } from '../shared/dto/team-dto.model';
 import { RaceDtoPost } from '../shared/dto/race-dto-post.model';
+import { UpcomingRace } from '../shared/model/upcomingrace-model';
 
 @Injectable({
     providedIn: 'root'
@@ -15,6 +16,7 @@ import { RaceDtoPost } from '../shared/dto/race-dto-post.model';
 export class HttpService {
     POST_URL = 'http://localhost:3000/api/post';
     GET_URL = 'http://localhost:3000/api/get';
+    PUT_URL = 'http://localhost:3000/api/put';
 
     constructor(private httpClient: HttpClient, private router: Router) {
     }
@@ -44,7 +46,7 @@ export class HttpService {
     }
 
     postUpcomingRace(upcomingRace: UpcomingRaceDto) {
-        return this.httpClient.post<UpcomingRaceDto>(this.POST_URL + '/upcoming-race', upcomingRace).subscribe(() => {
+        this.httpClient.post<UpcomingRaceDto>(this.POST_URL + '/upcoming-race', upcomingRace).subscribe(() => {
             this.router.navigate(['/']).then(() => alert('Nadchodzący wyścig dodany'));
         }, () => {
             this.router.navigate(['/']).then(() => alert('Wystąpił błąd'));
@@ -71,6 +73,14 @@ export class HttpService {
 
     getRacer(id: number) {
         return this.httpClient.get(this.GET_URL + '/racer' + id);
+    }
+
+    putUpcomingRace(upcomingRace: UpcomingRace) {
+        this.httpClient.put(this.PUT_URL + '/upcoming-race/' + upcomingRace.id, upcomingRace).subscribe(() => {
+            this.router.navigate(['/']).then(() => alert('Wyscig edytowany'));
+        }, () => {
+            this.router.navigate(['/']).then(() => alert('Wystąpił błąd'));
+        });
     }
 
 

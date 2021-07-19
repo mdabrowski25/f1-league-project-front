@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Race } from '../../shared/model/race.model';
 import { DataService } from '../../services/data.service';
 import { Subscription } from 'rxjs';
+import { UpcomingRace } from '../../shared/model/upcomingrace-model';
 
 @Component({
     selector: 'app-upcoming-races',
@@ -9,7 +10,7 @@ import { Subscription } from 'rxjs';
     styleUrls: ['./upcoming-races.component.css']
 })
 export class UpcomingRacesComponent implements OnInit, OnDestroy {
-    racesToCome: Race[] = [];
+    racesToCome: UpcomingRace[] = [];
     raceSub: Subscription | undefined;
     constructor(private data: DataService) {
     }

@@ -7,6 +7,7 @@ import { Team } from '../shared/model/team.model';
 import { RaceDtoGet } from '../shared/dto/race-dto-get.model';
 import { RacerTeam } from '../shared/model/racer-team.model';
 import { RaceData } from '../shared/model/racedata.model';
+import { UpcomingRace } from '../shared/model/upcomingrace-model';
 
 @Injectable({
     providedIn: 'root'
@@ -16,10 +17,10 @@ export class DataService {
     races: Race[] = [];
     racers: Racer[] = [];
     teams: Team[] = [];
-    upcomingRaces: Race[] = [];
+    upcomingRaces: UpcomingRace[] = [];
     loading: boolean = false;
     fetchErrorOccurred: boolean = false;
-    private arraysUpdated = new Subject<{ races: Race[], racers: Racer[], teams: Team[], racesToCome: Race[], loading: boolean, fetchErrorOccurred: boolean }>()
+    private arraysUpdated = new Subject<{ races: Race[], racers: Racer[], teams: Team[], racesToCome: UpcomingRace[], loading: boolean, fetchErrorOccurred: boolean }>()
 
     constructor(private http: HttpService) {
     }

@@ -1,1 +1,26 @@
-<p>edit-race works!</p>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-3 col-10">
+            <form [formGroup]="raceForm" (ngSubmit)="onSubmit()" method="post">
+                <label class="text-light" for="raceName">Nazwa: </label>
+                <input class="form-control mb-3" id="raceName" type="text" formControlName="raceName">
+
+                <label class="text-light" for="raceDate">Data i godzina: </label>
+                <input class="form-control mb-3" id="raceDate" type="datetime-local" formControlName="raceDate"
+                       (click)="this.raceForm.controls['raceDate'].markAsTouched()">
+
+                <label class="text-light" for="raceToEdit">Wybierz który wyścig edytować: </label>
+                <select id="raceToEdit" class="form-select mb-3" aria-label="Default select example" formControlName="raceToEdit">
+                    <option selected>Open this select menu</option>
+                    <option *ngFor="let raceToCome of racesToCome; let i = index"
+                            [value]="raceToCome.id">{{raceToCome.name}}</option>
+                </select>
+
+                <button type="submit" class="btn btn-dark btn-outline-light w-100"
+                        [disabled]="!isDisabled()">
+                    Edytuj
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
