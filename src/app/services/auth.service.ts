@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
+import { environment } from '../../environments/environment';
 
 @Injectable({
     providedIn: 'root'
 })
 export class AuthService {
-    POST_URL = 'http://localhost:3000/api/post';
+    POST_URL = environment.apiUrl + '/post';
     private token: string | undefined;
     private authStatusListener = new Subject<boolean>();
     private isLogged = false;

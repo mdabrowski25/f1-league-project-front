@@ -9,14 +9,15 @@ import { RacerDto } from '../shared/dto/racer-dto.model';
 import { TeamDto } from '../shared/dto/team-dto.model';
 import { RaceDtoPost } from '../shared/dto/race-dto-post.model';
 import { UpcomingRace } from '../shared/model/upcomingrace-model';
+import { environment } from '../../environments/environment';
 
 @Injectable({
     providedIn: 'root'
 })
 export class HttpService {
-    POST_URL = 'http://localhost:3000/api/post';
-    GET_URL = 'http://localhost:3000/api/get';
-    PUT_URL = 'http://localhost:3000/api/put';
+    POST_URL = environment.apiUrl + '/post';
+    GET_URL = environment.apiUrl + '/get';
+    PUT_URL = environment.apiUrl + '/put';
 
     constructor(private httpClient: HttpClient, private router: Router) {
     }
