@@ -1,42 +1,46 @@
-import { Component, OnInit } from '@angular/core';
-import { RacerTeamDto } from '../shared/dto/racer-team-dto.model';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { RacerTeam } from '../shared/model/racer-team.model';
 import { Racer } from '../shared/model/racer.model';
 import { Team } from '../shared/model/team.model';
+import { DataService } from '../services/data.service';
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'app-generator',
     templateUrl: './generator.component.html',
     styleUrls: ['./generator.component.css']
 })
-export class GeneratorComponent implements OnInit {
-    racers = [
-        new Racer(1,'Piotrula'),
-        new Racer(2,'Daber'),
-        new Racer(3,'Juri'),
-        new Racer(4,'Werty'),
-        new Racer(5,'Kopyt'),
-        new Racer(6,'Zbychu'),
-        new Racer(7,'Ginol'),
-        new Racer(8,'grzywek'),
-        new Racer(9,'BlyatMAN')
-    ];
+export class GeneratorComponent implements OnInit, OnDestroy {
+    racers: Racer[] = [];
 
-    teams = [
-        new Team(1,'Red Bull Racing'),
-        new Team(2,'Red Bull Racing'),
-        new Team(3,'Renault'),
-        new Team(4,'Renault'),
-        new Team(5,'Ferrari'),
-        new Team(6,'Ferrari'),
-        new Team(7,'Mercedes'),
-        new Team(8,'Mercedes'),
-        new Team(9,'McLaren'),
-        new Team(10,'McLaren')
-    ];
+    teams: Team[] = [];
 
-    racerTeam: RacerTeamDto[] = [];
+    racerTeam: RacerTeam[] = [];
 
-    constructor() {
+    generatorSubs: Subscription | undefined;
+
+    rbCount = 0;
+    ferrariCount = 0;
+    renaultCount = 0;
+    mercedesCount = 0;
+    mcLarenCount = 0;
+    loading: boolean = false;
+    fetchErrorOccurred: boolean = false;
+
+    constructor(private data: DataService) {
+        this.data.getData();
+        this.generatorSubs = this.data.getArraysUpdated().subscribe(arrays => {
+            this.racers = arrays.racers;
+            this.teams = arrays.teams;
+            this.loading = arrays.loading;
+            this.fetchErrorOccurred = arrays.fetchErrorOccurred;
+        });
+    }
+
+    ngOnDestroy(): void {
+        if (this.generatorSubs != undefined) {
+            this.generatorSubs.unsubscribe()
+        }
     }
 
     ngOnInit(): void {
@@ -44,7 +48,6 @@ export class GeneratorComponent implements OnInit {
 
     shuffleRacerAndTeam(): void {
         const randomRacerInt = Math.floor(Math.random() * this.racers.length);
-
         if (this.racers.length === 0) {
             return;
         }
@@ -61,11 +64,51 @@ export class GeneratorComponent implements OnInit {
         }
 
         let shuffledTeam = this.teams[randomTeamInt];
+        switch (shuffledTeam.name) {
+            case 'Red Bull Racing': {
+                this.rbCount++;
+                if (this.rbCount === 2) {
+                    this.deleteTeamFromArray(shuffledTeam);
+                }
+                break;
+            }
+            case 'Ferrari': {
+                this.ferrariCount++;
+                if (this.ferrariCount === 2) {
+                    this.deleteTeamFromArray(shuffledTeam);
+                }
+                break;
+            }
+            case 'Renault': {
+                this.renaultCount++;
+                if (this.renaultCount === 2) {
+                    this.deleteTeamFromArray(shuffledTeam);
+                }
+                break;
+            }
+            case 'Mercedes': {
+                this.mercedesCount++;
+                if (this.mercedesCount === 2) {
+                    this.deleteTeamFromArray(shuffledTeam);
+                }
+                break;
+            }
+            case 'McLaren': {
+                this.mcLarenCount++;
+                if (this.mcLarenCount === 2) {
+                    this.deleteTeamFromArray(shuffledTeam);
+                }
+                break;
+            }
+        }
+
+        let racerTeamDto = new RacerTeam(shuffledRacer, shuffledTeam);
+        this.racerTeam.push(racerTeamDto);
+    }
+
+    private deleteTeamFromArray(shuffledTeam: Team) {
         this.teams = this.teams.filter((e) => {
             return e.id !== shuffledTeam.id;
-        })
-
-        let racerTeamDto = new RacerTeamDto(shuffledRacer, shuffledTeam);
-        this.racerTeam.push(racerTeamDto);
+        });
     }
 }

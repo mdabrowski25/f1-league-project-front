@@ -1,0 +1,58 @@
+<div class="container-fluid mt-3">
+    <div class="row">
+        <div class="col-md-12">
+            <div *ngIf="!editorMode">
+                <div class="d-flex flex-md-row flex-wrap gap-2">
+                    <div class="card bg-dark text-light" style="width: 24rem;">
+                        <h3 class="ps-2 pt-2">Wynik wyścigu </h3>
+                        <div class="card-body">
+                            <h5 class="card-title">Informacje</h5>
+                            <p class="card-text"><span class="fw-bold">Potrzebne do dodania:</span> nazwa, data, pozycje
+                                kierowców, czasy kierowców,
+                                drużyna kierowców</p>
+                            <a routerLink="add/race-highlights" (click)="editorMode = true" class="btn btn-dark btn-outline-light me-3">Dodaj</a>
+                            <a href="#" class="btn btn-dark btn-outline-light me-3 disabled">Edytuj</a>
+                            <a href="#" class="btn btn-dark btn-outline-light disabled">Usuń</a>
+                        </div>
+                    </div>
+                    <div class="card bg-dark text-light" style="width: 24rem;">
+                        <h3 class="ps-2 pt-2">Wyścig</h3>
+                        <div class="card-body">
+                            <h5 class="card-title">Informacje</h5>
+                            <p class="card-text"><span class="fw-bold">Potrzebne do dodania:</span> nazwa, data </p>
+                            <a routerLink="add/race" (click)="editorMode = true" class="btn btn-dark btn-outline-light me-3">Dodaj</a>
+                            <a routerLink="edit/race" class="btn btn-dark btn-outline-light me-3 disabled">Edytuj</a>
+                            <a href="#" class="btn btn-dark btn-outline-light disabled">Usuń</a>
+                        </div>
+                    </div>
+                    <div class="card bg-dark text-light" style="width: 24rem;">
+                        <h3 class="ps-2 pt-2">Kierowca</h3>
+                        <div class="card-body">
+                            <h5 class="card-title">Informacje</h5>
+                            <p class="card-text"><span class="fw-bold">Potrzebne do dodania:</span> nazwa</p>
+                            <a routerLink="add/driver" (click)="editorMode = true" class="btn btn-dark btn-outline-light me-3">Dodaj</a>
+                            <a href="#" class="btn btn-dark btn-outline-light me-3 disabled">Edytuj</a>
+                            <a href="#" class="btn btn-dark btn-outline-light disabled">Usuń</a>
+                        </div>
+                    </div>
+                    <div class="card bg-dark text-light" style="width: 24rem;">
+                        <h3 class="ps-2 pt-2">Drużyna</h3>
+                        <div class="card-body">
+                            <h5 class="card-title">Informacje</h5>
+                            <p class="card-text"><span class="fw-bold">Potrzebne do dodania:</span> nazwa</p>
+                            <a routerLink="add/team" (click)="editorMode = true" class="btn btn-dark btn-outline-light me-3">Dodaj</a>
+                            <a href="#" class="btn btn-dark btn-outline-light me-3 disabled">Edytuj</a>
+                            <a href="#" class="btn btn-dark btn-outline-light disabled">Usuń</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="editorMode">
+                <div class="d-flex justify-content-start ms-4">
+                    <a routerLink="/admin-panel" (click)="editorMode = false" class="btn btn-dark btn-outline-light mt-2 mb-2">Wróć</a>
+                </div>
+                <router-outlet></router-outlet>
+            </div>
+        </div>
+    </div>
+</div>

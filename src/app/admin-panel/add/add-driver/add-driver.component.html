@@ -1,0 +1,16 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="d-flex align-content-start">
+            <form [formGroup]="racerForm" (ngSubmit)="onSubmit()" method="post">
+                <label class="text-light" for="racerName">Nazwa: </label>
+                <input class="form-control mb-3" id="racerName" type="text" formControlName="racerName"
+                       (click)="this.racerForm.markAllAsTouched()">
+
+                <button type="submit" class="btn btn-dark btn-outline-light w-100"
+                        [disabled]="!(racerForm.controls['racerName'].touched && racerForm.controls['racerName'].valid)">
+                    Dodaj
+                </button>
+            </form>
+        </div>
+    </div>
+</div>

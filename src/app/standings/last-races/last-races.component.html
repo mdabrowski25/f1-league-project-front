@@ -1,0 +1,43 @@
+<div class="container-fluid">
+    <div class="row">
+        <h2 class="text-light mt-3 pb-2 d-flex justify-content-center border-light border-bottom border-1">Ostatnie wyścigi</h2>
+        <div class="accordion mt-3" id="myAccordion">
+            <div class="accordion-item bg-dark text-light" *ngFor="let race of races, let i = index">
+                <h2 class="accordion-header" [attr.id]="'heading'+(i+100)">
+                    <button class="accordion-button collapsed text-light bg-dark" type="button"
+                            data-bs-toggle="collapse"
+                            [attr.data-bs-target]="'#collapse'+(i+100)" aria-expanded="false"
+                            [attr.aria-controls]="'collapse'+(i+100)">
+                                <span>
+                                    {{race.name + ' ' + race.date}}
+                                </span>
+                    </button>
+                </h2>
+                <div [attr.id]="'collapse'+(i+100)" class="accordion-collapse collapse"
+                     [attr.aria-labelledby]="'heading'+(i+100)"
+                     data-bs-parent="#myAccordion">
+                    <div class="accordion-body">
+                        <table class="table w-100 table-dark table-striped table-hover">
+                            <thead>
+                            <tr class="align-middle text-center">
+                                <th scope="col" class="custom-th-bg">Miejsce</th>
+                                <th scope="col" class="custom-th-bg">Kierowca</th>
+                                <th scope="col" class="custom-th-bg">Drużyna</th>
+                                <th scope="col" class="custom-th-bg">Najlepszy czas</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let standings of race.scores" class="align-middle text-center">
+                                <th scope="row">{{standings.position}}</th>
+                                <td>{{standings.racerAndTeam.racer.name}}</td>
+                                <td>{{standings.racerAndTeam.team.name}}</td>
+                                <td [ngClass]="race.bestLapTime == standings.bestLapTime ? 'bestLap' : ''">{{standings.bestLapTime[0] + ':' + standings.bestLapTime[1] + ':' + standings.bestLapTime[2]}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

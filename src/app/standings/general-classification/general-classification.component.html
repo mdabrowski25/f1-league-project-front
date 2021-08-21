@@ -1,0 +1,56 @@
+<div class="container-fluid">
+    <div class="row">
+        <h2 class="text-light mt-3 pb-2 d-flex justify-content-center border-light border-bottom border-1">Klasyfikacja
+            generalna</h2>
+        <div class="accordion mt-3" id="myAccordion">
+            <div class="accordion-item bg-dark text-light" *ngFor="let racer of racers, let i = index">
+                <h2 class="accordion-header" [attr.id]="'heading'+i">
+                    <button class="accordion-button collapsed text-light bg-dark" type="button"
+                            data-bs-toggle="collapse"
+                            [attr.data-bs-target]="'#collapse'+i" aria-expanded="false"
+                            [attr.aria-controls]="'collapse'+i">
+                        <span>
+                            {{(i + 1) + '. ' + racer.name + ', punkty: ' + racer.points}}
+                        </span>
+                    </button>
+                </h2>
+                <div [attr.id]="'collapse'+i" class="accordion-collapse collapse"
+                     [attr.aria-labelledby]="'heading'+i"
+                     data-bs-parent="#myAccordion">
+                    <div class="accordion-body">
+                        <div class="d-flex flex-row justify-content-around flex-wrap">
+                            <h4>Pozycja gen. : {{(i + 1)}}</h4>
+                            <h4>Punkty: {{racer.points}}</h4>
+                        </div>
+                        <div class="list-group">
+                            <a class="list-group-item list-group-item-action bg-dark text-light border-light"
+                               *ngFor="let race of races">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h5 class="mb-1">{{race.name}}</h5>
+                                    <small>{{race.date}}</small>
+                                </div>
+                                <p class="mb-1 d-flex justify-content-around">
+                                    <span>
+                                        Pozycja: {{getRacerPositionInRace(racer, race)}}
+                                    </span>
+                                    <span>
+                                        Team: {{getRacerTeamInRace(racer, race)}}
+                                    </span>
+                                    <span>
+                                       Najlepszy czas:
+                                        <span [ngClass]="getRacerBestLapTimeInRace(racer, race).bestOverall ? 'bestLap' : ''">
+                                            {{getRacerBestLapTimeInRace(racer, race).bestLap}}
+                                        </span>
+                                    </span>
+                                    <span>
+                                    Punkty: {{getRacerPointsGot(racer, race)}}
+                                    </span>
+                                </p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

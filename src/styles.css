@@ -1,4 +1,9 @@
-/* BACKGROUND CSS SECTION */
+ /*BACKGROUND CSS SECTION */
+@media (min-width: 768px) {
+    html {
+        background-color: rgba(0, 0, 0, 0.9);
+    }
+}
 body {
     background-image: url("src/assets/img/bg-prime.jpg");
     background-position: center;
@@ -19,3 +24,46 @@ body {
 }
 
 /* ------------------------------- */
+
+
+/* FOR TABLES */
+.round-bottom-right {
+    border-radius: 0 0 20px 0;
+}
+
+.round-bottom-left {
+    border-radius: 0 0 0 20px;
+}
+
+table {
+    color: white;
+}
+
+.round-top-left {
+    border-radius: 20px 0 0 0;
+}
+
+.round-top-right {
+    border-radius: 0 20px 0 0;
+}
+
+.bottom-tr {
+    border: transparent;
+}
+
+/* ------------------------------- */
+
+/* ACCORDIONS */
+.accordion-button.collapsed {
+    background: blue
+}
+
+.accordion-button.collapsed::after {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23fff'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+}
+
+/* ------------------------------- */
+
+ .bestLap {
+     color: darkorchid;
+ }

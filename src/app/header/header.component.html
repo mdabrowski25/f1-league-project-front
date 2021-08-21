@@ -1,16 +1,24 @@
 <nav class="navbar navbar-expand-md bg-light bg-transparent">
     <div class="container-fluid">
         <a class="navbar-brand" routerLink="">Ziemniaki F1</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"><fa-icon [icon]="faBars" class="my-toggler"></fa-icon></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
-            <ul class="navbar-nav">
+            <ul class="navbar-nav gap-lg-2">
                 <li class="nav-item">
                     <a class="nav-link" routerLink="generator" routerLinkActive="active">Generator</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" routerLink="standings" routerLinkActive="active">Wyniki</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="admin-panel" routerLinkActive="active" *ngIf="userLogged">Admin</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="login" routerLinkActive="active" *ngIf="!userLogged">Logowanie</a>
+                    <button class="btn btn-dark btn-outline-light navbar-text" *ngIf="userLogged" (click)="logout()">Wyloguj</button>
                 </li>
             </ul>
         </div>

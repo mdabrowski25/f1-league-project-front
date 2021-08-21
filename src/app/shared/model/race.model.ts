@@ -3,12 +3,15 @@ import { RaceData } from './racedata.model';
 export class Race {
     id: number;
     name: string;
-    scores: Map<number, RaceData>;
+    date?: string | null;
+    scores?: RaceData[];
+    bestLapTime?: number[];
 
 
-    constructor(id: number, name: string, scores: Map<number, RaceData>) {
+    constructor(id: number, name: string) {
         this.id = id;
         this.name = name;
-        this.scores = scores;
+        this.scores = [];
+        this.bestLapTime = [];
     }
 }

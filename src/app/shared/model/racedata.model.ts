@@ -1,11 +1,14 @@
-import { RacerTeamDto } from '../dto/racer-team-dto.model';
+import { RacerTeam } from './racer-team.model';
+
 
 export class RaceData {
-    racerAndTeam: RacerTeamDto;
-    bestLapTime: string;
+    position: number;
+    racerAndTeam: RacerTeam;
+    bestLapTime: number[];
 
 
-    constructor(racerAndTeam: RacerTeamDto, bestLapTime: string) {
+    constructor(position: number, racerAndTeam: RacerTeam, bestLapTime: number[]) {
+        this.position = position;
         this.racerAndTeam = racerAndTeam;
         this.bestLapTime = bestLapTime;
     }

@@ -1,0 +1,20 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-5 center">
+            <form #loginForm="ngForm" class="text-light" (submit)="onLogin(loginForm)">
+                <div class="mb-3 mt-3">
+                    <label for="emailInput1" class="form-label">Email</label>
+                    <input type="email" name="email" #emailInput="ngModel" ngModel class="form-control" id="emailInput1" aria-describedby="email" required>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">Password</label>
+                    <input type="password" name="password" class="form-control" #passwordInput="ngModel" id="exampleInputPassword1" ngModel required>
+                </div>
+                <button type="submit" class="btn btn-primary" *ngIf="!isLoading">Login</button>
+                <div class="spinner-border text-light" role="status" *ngIf="isLoading">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
