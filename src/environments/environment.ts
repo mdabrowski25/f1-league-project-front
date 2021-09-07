@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://ziemniakif1env-env.eba-kxpwcrmk.eu-central-1.elasticbeanstalk.com/api'
+  apiUrl: 'https://ziemniakif1-api.azurewebsites.net/api'
 };
 
 /*
