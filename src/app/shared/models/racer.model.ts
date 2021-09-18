@@ -1,11 +1,9 @@
-export class Team {
-    _id?: string;
-    id: number;
+export class Racer {
+    id: string;
     name: string;
     points: number;
 
-
-    constructor(id: number, name: string) {
+    constructor(id: string, name: string) {
         this.id = id;
         this.name = name;
         this.points = 0;

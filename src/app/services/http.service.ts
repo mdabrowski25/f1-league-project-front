@@ -1,15 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Racer } from '../shared/model/racer.model';
-import { Team } from '../shared/model/team.model';
-import { RaceDtoGet } from '../shared/dto/race-dto-get.model';
-import { UpcomingRaceDto } from '../shared/dto/upcoming-race-dto.model';
-import { Router } from '@angular/router';
-import { RacerDto } from '../shared/dto/racer-dto.model';
-import { TeamDto } from '../shared/dto/team-dto.model';
-import { RaceDtoPost } from '../shared/dto/race-dto-post.model';
-import { UpcomingRace } from '../shared/model/upcomingrace-model';
 import { environment } from '../../environments/environment';
+import { Router } from '@angular/router';
+import { map } from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root'
@@ -22,32 +15,72 @@ export class HttpService {
     constructor(private httpClient: HttpClient, private router: Router) {
     }
 
-    postRacer(racer: RacerDto) {
-        this.httpClient.post<RacerDto>(this.POST_URL + '/racer', racer).subscribe(() => {
+    postRacer(racer: {
+        name: string
+    }) {
+        this.httpClient.post<{ name: string }>(this.POST_URL + '/racer', racer).subscribe(() => {
             this.router.navigate(['/']).then(() => alert('Kierowca dodany'));
         }, () => {
             this.router.navigate(['/']).then(() => alert('Wystąpił błąd'));
         });
     }
 
-    postTeam(team: TeamDto) {
-        this.httpClient.post<TeamDto>(this.POST_URL + '/team', team).subscribe(() => {
+    postTeam(team: { name: string }) {
+        this.httpClient.post<{ name: string }>(this.POST_URL + '/team', team).subscribe(() => {
             this.router.navigate(['/']).then(() => alert('Drużyna dodana'));
         }, () => {
             this.router.navigate(['/']).then(() => alert('Wystąpił błąd'));
         });
     }
 
-    postRace(race: RaceDtoPost) {
-        this.httpClient.post<RaceDtoPost>(this.POST_URL + '/race', race).subscribe(() => {
+    postRace(race: {
+        name: string,
+        date: string,
+        scores: [{
+            position: number,
+            racerAndTeam: {
+                racer: {
+                    id: string,
+                    name: string,
+                    points: number
+                },
+                team: {
+                    id: number,
+                    name: string,
+                    points: number
+                }
+            }
+            bestLapTime: number[]
+        }]
+    }) {
+        this.httpClient.post<{
+            name: string,
+            date: string,
+            scores: [{
+                position: number,
+                racerAndTeam: {
+                    racer: {
+                        id: string,
+                        name: string,
+                        points: number
+                    },
+                    team: {
+                        id: number,
+                        name: string,
+                        points: number
+                    }
+                }
+                bestLapTime: number[]
+            }]
+        }>(this.POST_URL + '/race', race).subscribe(() => {
             this.router.navigate(['/']).then(() => alert('Wyścig z wynikami dodany'));
         }, () => {
             this.router.navigate(['/']).then(() => alert('Wystąpił błąd'));
         });
     }
 
-    postUpcomingRace(upcomingRace: UpcomingRaceDto) {
-        this.httpClient.post<UpcomingRaceDto>(this.POST_URL + '/upcoming-race', upcomingRace).subscribe(() => {
+    postUpcomingRace(upcomingRace: { name: string, date: string }) {
+        this.httpClient.post<{ name:string, date: string }>(this.POST_URL + '/upcoming-race', upcomingRace).subscribe(() => {
             this.router.navigate(['/']).then(() => alert('Nadchodzący wyścig dodany'));
         }, () => {
             this.router.navigate(['/']).then(() => alert('Wystąpił błąd'));
@@ -55,33 +88,78 @@ export class HttpService {
     }
 
     getRacers() {
-        return this.httpClient.get<{ racers: Racer[] }>(this.GET_URL + '/racers');
+        return this.httpClient.get<{ racers: [{_id: string, name: string}] }>(this.GET_URL + '/racers').pipe(map(
+            racerData => {
+                return racerData.racers.map(racer => {
+                    return {
+                        id: racer._id,
+                        name: racer.name
+                    }
+                })
+            }
+        ));
     }
 
     getTeams() {
-        return this.httpClient.get<{ teams: Team[] }>(this.GET_URL + '/teams');
+        return this.httpClient.get<{ teams: [{ _id: string, name: string }] }>(this.GET_URL + '/teams').pipe(map(
+            teamsData => {
+                return teamsData.teams.map(team => {
+                    return {
+                        id: team._id,
+                        name: team.name
+                    }
+                })
+            }
+        ));
     }
 
     getRaces() {
         return this.httpClient.get<{
-            races: [racesDto: RaceDtoGet]
-        }>(this.GET_URL + '/races');
+            races: [race: {
+                _id: string,
+                name: string,
+                date: string,
+                scores: [{
+                    position: number,
+                    racerAndTeam: {
+                        racer: {
+                            id: string,
+                            name: string
+                        },
+                        team: {
+                            id: string,
+                            name: string
+                        }
+                    }
+                    bestLapTime: [number, number, number]
+                }]
+            }]
+        }>(this.GET_URL + '/races').pipe(map(
+            racesData => {
+                return racesData.races.map(race => {
+                    return {
+                        id: race._id,
+                        name: race.name,
+                        date: race.date,
+                        scores: race.scores
+                    }
+                })
+            }
+        ));
     }
 
     getUpcomingRaces() {
-        return this.httpClient.get(this.GET_URL + '/upcoming-races');
-    }
-
-    getRacer(id: number) {
-        return this.httpClient.get(this.GET_URL + '/racer' + id);
-    }
-
-    putUpcomingRace(upcomingRace: UpcomingRace) {
-        this.httpClient.put(this.PUT_URL + '/upcoming-race/' + upcomingRace.id, upcomingRace).subscribe(() => {
-            this.router.navigate(['/']).then(() => alert('Wyscig edytowany'));
-        }, () => {
-            this.router.navigate(['/']).then(() => alert('Wystąpił błąd'));
-        });
+        return this.httpClient.get<{ upcomingRaces: [{_id: string, name: string, date: string}] }>(this.GET_URL + '/upcoming-races').pipe(map(
+            upcomingRacesData => {
+                return upcomingRacesData.upcomingRaces.map(upcomingRace => {
+                    return {
+                        id: upcomingRace._id,
+                        name: upcomingRace.name,
+                        date: upcomingRace.date
+                    }
+                })
+            }
+        ));
     }
 
 
