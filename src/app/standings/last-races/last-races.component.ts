@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Race } from '../../shared/model/race.model';
 import { DataService } from '../../services/data.service';
 import { Subscription } from 'rxjs';
+import { Race } from '../../shared/models/race.model';
 
 @Component({
     selector: 'app-last-races',

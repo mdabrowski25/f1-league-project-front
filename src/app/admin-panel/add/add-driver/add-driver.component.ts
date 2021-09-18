@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { RacerDto } from '../../../shared/dto/racer-dto.model';
 import { HttpService } from '../../../services/http.service';
 
 
@@ -22,7 +21,7 @@ export class AddDriverComponent implements OnInit {
   }
 
   onSubmit() {
-    const racerFromForm: RacerDto = {
+    const racerFromForm: { name: string } = {
       name: this.racerForm.value.racerName,
     }
     this.http.postRacer(racerFromForm);

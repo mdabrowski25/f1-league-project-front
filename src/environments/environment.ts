@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'https://ziemniakif1-api.azurewebsites.net/api'
+  apiUrl: 'localhost:3000'
 };
 
 /*

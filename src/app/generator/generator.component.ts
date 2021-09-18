@@ -1,9 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { RacerTeam } from '../shared/model/racer-team.model';
-import { Racer } from '../shared/model/racer.model';
-import { Team } from '../shared/model/team.model';
 import { DataService } from '../services/data.service';
 import { Subscription } from 'rxjs';
+import { Racer } from '../shared/models/racer.model';
+import { Team } from '../shared/models/team.model';
+import { RacerTeam } from '../shared/models/racer-team.model';
 
 @Component({
     selector: 'app-generator',

@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Team } from '../../shared/model/team.model';
 import { DataService } from '../../services/data.service';
 import { Subscription } from 'rxjs';
+import { Team } from '../../shared/models/team.model';
 
 @Component({
     selector: 'app-constructors-classification',

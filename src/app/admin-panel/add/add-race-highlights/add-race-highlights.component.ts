@@ -1,13 +1,14 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { RaceDtoPost } from '../../../shared/dto/race-dto-post.model';
-import { Racer } from '../../../shared/model/racer.model';
+
 import { Subscription } from 'rxjs';
 import { DataService } from '../../../services/data.service';
-import { Team } from '../../../shared/model/team.model';
-import { Grid } from '../../../shared/model/grid.model';
+
 import { DatePipe } from '@angular/common';
 import { HttpService } from '../../../services/http.service';
+import { Racer } from '../../../shared/models/racer.model';
+import { Team } from '../../../shared/models/team.model';
+import { Grid } from '../../../shared/models/grid.model';
 
 @Component({
     selector: 'app-add-race-highlights',
@@ -28,9 +29,8 @@ export class AddRaceHighlightsComponent implements OnInit, OnDestroy {
         this.racerSub = data.getArraysUpdated().subscribe(arrays => {
             this.racers = arrays.racers;
             this.teams = arrays.teams;
-            this.sortRacersAndTeamsByIds();
             for (let i = 0; i < this.racers.length; i++) {
-                this.grid.push(new Grid(0, 0, ''));
+                this.grid.push(new Grid(0, '', '', ''));
             }
         });
         this.raceName = this.fb.control([null], [Validators.required]);
@@ -47,11 +47,27 @@ export class AddRaceHighlightsComponent implements OnInit, OnDestroy {
 
     onSubmit() {
         let transformedDate = this.datePipe.transform(this.raceForm.value.raceDate, 'dd-MM-yyyy HH:mm');
-        const pointsArray: number[] = [25, 18, 15, 12, 10, 8, 6, 4, 2, 1];
         if (!transformedDate) {
             return;
         }
-        const raceFromForm: RaceDtoPost = {
+        const raceFromForm: {
+            name: string,
+            date: string,
+            scores: [{
+                position: number,
+                racerAndTeam: {
+                    racer: {
+                        id: string,
+                        name: string | undefined
+                    },
+                    team: {
+                        id: string,
+                        name: string | undefined
+                    }
+                },
+                bestLapTime: number[]
+            }]
+        } = {
             name: this.raceForm.value.raceName,
             date: transformedDate,
             scores: [{
@@ -59,13 +75,11 @@ export class AddRaceHighlightsComponent implements OnInit, OnDestroy {
                 racerAndTeam: {
                     racer: {
                         id: this.grid[0].racerId,
-                        name: this.racers[this.grid[0].racerId-1].name,
-                        points: pointsArray[0]
+                        name: this.racers.find(racer => racer.id === this.grid[0].racerId)?.name
                     },
                     team: {
                         id: this.grid[0].teamId,
-                        name: this.teams[this.grid[0].teamId-1].name,
-                        points: pointsArray[0]
+                        name: this.teams.find(team => team.id === this.grid[0].teamId)?.name
                     }
                 },
                 bestLapTime: AddRaceHighlightsComponent.getIntArrayFromStringArray(this.grid[0].bestLapTime.split(':'))
@@ -77,13 +91,11 @@ export class AddRaceHighlightsComponent implements OnInit, OnDestroy {
                 racerAndTeam: {
                     racer: {
                         id: this.grid[i].racerId,
-                        name: this.racers[this.grid[i].racerId-1].name,
-                        points: pointsArray[i]
+                        name: this.racers.find(racer => racer.id === this.grid[i].racerId)?.name
                     },
                     team: {
                         id: this.grid[i].teamId,
-                        name:this.teams[this.grid[i].teamId-1].name,
-                        points: pointsArray[i]
+                        name: this.teams.find(team => team.id === this.grid[i].teamId)?.name
                     }
                 },
                 bestLapTime: AddRaceHighlightsComponent.getIntArrayFromStringArray(this.grid[i].bestLapTime.split(':'))
@@ -113,26 +125,5 @@ export class AddRaceHighlightsComponent implements OnInit, OnDestroy {
            array.push(parseInt(strings[i]));
         }
         return array;
-    }
-
-    private sortRacersAndTeamsByIds() {
-        this.racers.sort((a, b) => {
-            if (a.id < b.id) {
-                return -1;
-            } else if (a.id === b.id) {
-                return 0;
-            } else {
-                return 1;
-            }
-        });
-        this.teams.sort((a, b) => {
-            if (a.id < b.id) {
-                return -1;
-            } else if (a.id === b.id) {
-                return 0;
-            } else {
-                return 1;
-            }
-        })
     }
 }

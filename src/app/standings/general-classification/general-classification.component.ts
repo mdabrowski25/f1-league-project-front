@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Race } from '../../shared/model/race.model';
-import { Racer } from '../../shared/model/racer.model';
 import { DataService } from '../../services/data.service';
 import { Subscription } from 'rxjs';
+import { Race } from '../../shared/models/race.model';
+import { Racer } from '../../shared/models/racer.model';
 
 @Component({
     selector: 'app-general-classification',

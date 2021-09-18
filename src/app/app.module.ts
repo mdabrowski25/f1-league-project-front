@@ -23,7 +23,6 @@ import { AddDriverComponent } from './admin-panel/add/add-driver/add-driver.comp
 import { AddRaceComponent } from './admin-panel/add/add-race/add-race.component';
 import { AddTeamComponent } from './admin-panel/add/add-team/add-team.component';
 import { AuthGuard } from './services/guards/auth.guard';
-import { EditRaceComponent } from './admin-panel/edit/edit-race/edit-race.component';
 
 const routes: Routes = [{
     path: 'generator',
@@ -57,10 +56,6 @@ const routes: Routes = [{
         {
             path: 'add/team',
             component: AddTeamComponent
-        },
-        {
-            path: 'edit/race',
-            component: EditRaceComponent
         }
     ]
 }];
@@ -81,8 +76,7 @@ const routes: Routes = [{
         AddRaceHighlightsComponent,
         AddDriverComponent,
         AddRaceComponent,
-        AddTeamComponent,
-        EditRaceComponent
+        AddTeamComponent
     ],
     imports: [
         BrowserModule,

@@ -1,8 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Race } from '../../shared/model/race.model';
 import { DataService } from '../../services/data.service';
 import { Subscription } from 'rxjs';
-import { UpcomingRace } from '../../shared/model/upcomingrace-model';
+import { UpcomingRace } from '../../shared/models/upcoming-race.model';
 
 @Component({
     selector: 'app-upcoming-races',
@@ -21,7 +20,7 @@ export class UpcomingRacesComponent implements OnInit, OnDestroy {
         });
     }
 
-    showDate(race: Race) {
+    showDate(race: UpcomingRace) {
         return race.date != undefined ? race.date : 'Brak informacji'
     }
 

@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { HttpService } from '../../../services/http.service';
-import { UpcomingRaceDto } from '../../../shared/dto/upcoming-race-dto.model';
 
 @Component({
     selector: 'app-add-race',
@@ -23,10 +22,15 @@ export class AddRaceComponent implements OnInit {
     }
 
     onSubmit() {
-        const raceFromForm: UpcomingRaceDto = {
-            name: this.raceForm.value.raceName,
-            date: this.datePipe.transform(this.raceForm.value.raceDate, 'dd-MM-yyyy HH:mm')
+        let transformedDate = this.datePipe.transform(this.raceForm.value.raceDate, 'dd-MM-yyyy HH:mm');
+        if (transformedDate) {
+            const raceFromForm: { name: string, date: string } = {
+                name: this.raceForm.value.raceName,
+                date: transformedDate
+            }
+            this.http.postUpcomingRace(raceFromForm);
+        } else {
+            alert('Date parsing failed');
         }
-        this.http.postUpcomingRace(raceFromForm);
     }
 }

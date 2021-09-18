@@ -43,13 +43,11 @@ export class HttpService {
             racerAndTeam: {
                 racer: {
                     id: string,
-                    name: string,
-                    points: number
+                    name: string | undefined
                 },
                 team: {
-                    id: number,
-                    name: string,
-                    points: number
+                    id: string,
+                    name: string | undefined
                 }
             }
             bestLapTime: number[]
@@ -63,13 +61,11 @@ export class HttpService {
                 racerAndTeam: {
                     racer: {
                         id: string,
-                        name: string,
-                        points: number
+                        name: string | undefined
                     },
                     team: {
-                        id: number,
-                        name: string,
-                        points: number
+                        id: string,
+                        name: string | undefined
                     }
                 }
                 bestLapTime: number[]
@@ -92,7 +88,7 @@ export class HttpService {
     getRacers() {
         return this.httpClient.get<{ racers: [{ _id: string, name: string }] }>(this.GET_URL + '/racers').pipe(map(
             racerData => {
-                return racerData.racers.map(racer => {
+                return racerData.racers.map((racer) => {
                     return {
                         id: racer._id,
                         name: racer.name,
@@ -135,7 +131,7 @@ export class HttpService {
                             name: string
                         }
                     }
-                    bestLapTime: [number, number, number]
+                    bestLapTime: number[]
                 }]
             }]
         }>(this.GET_URL + '/races').pipe(map(
@@ -148,19 +144,22 @@ export class HttpService {
                         scores: race.scores.map(score => {
                             return {
                                 position: score.position,
-                                racer: {
-                                    id: score.racerAndTeam.racer.id,
-                                    name: score.racerAndTeam.racer.name,
-                                    points: this.pointsArray[score.position]
-                                },
-                                team: {
-                                    id: score.racerAndTeam.racer.id,
-                                    name: score.racerAndTeam.racer.name,
-                                    points: this.pointsArray[score.position]
+                                racerAndTeam: {
+                                    racer: {
+                                        id: score.racerAndTeam.racer.id,
+                                        name: score.racerAndTeam.racer.name,
+                                        points: this.pointsArray[score.position]
+                                    },
+                                    team: {
+                                        id: score.racerAndTeam.racer.id,
+                                        name: score.racerAndTeam.racer.name,
+                                        points: this.pointsArray[score.position]
+                                    }
                                 },
                                 bestLapTime: score.bestLapTime
                             }
-                        })
+                        }),
+                        bestLapTime: [100,100,100]
                     }
                 })
             }

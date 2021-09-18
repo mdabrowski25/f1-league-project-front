@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpService } from '../../../services/http.service';
-import { TeamDto } from '../../../shared/dto/team-dto.model';
 
 @Component({
   selector: 'app-add-team',
@@ -20,7 +19,7 @@ export class AddTeamComponent implements OnInit {
   }
 
   onSubmit() {
-    const teamFromForm: TeamDto = {
+    const teamFromForm: { name: string } = {
       name: this.teamForm.value.teamName,
     }
     this.http.postTeam(teamFromForm);
