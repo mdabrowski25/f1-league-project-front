@@ -30,12 +30,25 @@ export class DataService {
 
         this.loading = true;
         forkJoin(this.observables).subscribe(([dataRacers, dataTeams, dataRaces, dataUpcomingRaces]) => {
-            this.upcomingRaces = dataUpcomingRaces.upcomingRaces;
-            this.racers = dataRacers.racers;
-            this.teams = dataTeams.teams;
-            this.races = dataRaces.races;
+            this.upcomingRaces = dataUpcomingRaces
+            this.racers = dataRacers
+            this.teams = dataTeams
+            this.races = dataRaces
 
-            //sumPoints()
+
+            // get best lap time and save it in every race
+            for (let i = 0; i < this.races.length; i++) {
+                let bestLapTime = [];
+                for (let j = 0; j < this.races[i].scores.length; j++) {
+                    let racerBest = this.races[i].scores[j].bestLapTime;
+
+                }
+            }
+
+            //add points from races to the drivers
+
+
+            this.sortRacersAndTeamsByPoints()
 
             this.loading = false;
             this.arraysUpdated.next({

@@ -87,7 +87,7 @@ export class HttpService {
 
     getRacers() {
         return this.httpClient.get<{ racers: [{ _id: string, name: string }] }>(this.GET_URL + '/racers').pipe(map(
-            racerData => {
+            (racerData) => {
                 return racerData.racers.map((racer) => {
                     return {
                         id: racer._id,
