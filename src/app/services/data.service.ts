@@ -1,6 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpService } from './http.service';
 import { forkJoin, Observable, Subject } from 'rxjs';
+import { Racer } from '../shared/models/racer.model';
+import { Race } from '../shared/models/race.model';
+import { Team } from '../shared/models/team.model';
+import { UpcomingRace } from '../shared/models/upcoming-race.model';
 
 @Injectable({
     providedIn: 'root'
@@ -29,13 +33,9 @@ export class DataService {
             this.upcomingRaces = dataUpcomingRaces.upcomingRaces;
             this.racers = dataRacers.racers;
             this.teams = dataTeams.teams;
+            this.races = dataRaces.races;
 
-
-            let racesFromDb: RaceDtoGet[] = dataRaces.races;
-            let racesArray: Race[] = [];
-
-
-
+            //sumPoints()
 
             this.loading = false;
             this.arraysUpdated.next({

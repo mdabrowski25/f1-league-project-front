@@ -12,6 +12,8 @@ export class HttpService {
     GET_URL = environment.apiUrl + '/get';
     PUT_URL = environment.apiUrl + '/put';
 
+    pointsArray: number[] = [25, 18, 15, 12, 10, 8, 6, 4, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+
     constructor(private httpClient: HttpClient, private router: Router) {
     }
 
@@ -80,7 +82,7 @@ export class HttpService {
     }
 
     postUpcomingRace(upcomingRace: { name: string, date: string }) {
-        this.httpClient.post<{ name:string, date: string }>(this.POST_URL + '/upcoming-race', upcomingRace).subscribe(() => {
+        this.httpClient.post<{ name: string, date: string }>(this.POST_URL + '/upcoming-race', upcomingRace).subscribe(() => {
             this.router.navigate(['/']).then(() => alert('Nadchodzący wyścig dodany'));
         }, () => {
             this.router.navigate(['/']).then(() => alert('Wystąpił błąd'));
@@ -88,12 +90,13 @@ export class HttpService {
     }
 
     getRacers() {
-        return this.httpClient.get<{ racers: [{_id: string, name: string}] }>(this.GET_URL + '/racers').pipe(map(
+        return this.httpClient.get<{ racers: [{ _id: string, name: string }] }>(this.GET_URL + '/racers').pipe(map(
             racerData => {
                 return racerData.racers.map(racer => {
                     return {
                         id: racer._id,
-                        name: racer.name
+                        name: racer.name,
+                        points: 0
                     }
                 })
             }
@@ -106,7 +109,8 @@ export class HttpService {
                 return teamsData.teams.map(team => {
                     return {
                         id: team._id,
-                        name: team.name
+                        name: team.name,
+                        points: 0
                     }
                 })
             }
@@ -141,7 +145,22 @@ export class HttpService {
                         id: race._id,
                         name: race.name,
                         date: race.date,
-                        scores: race.scores
+                        scores: race.scores.map(score => {
+                            return {
+                                position: score.position,
+                                racer: {
+                                    id: score.racerAndTeam.racer.id,
+                                    name: score.racerAndTeam.racer.name,
+                                    points: this.pointsArray[score.position]
+                                },
+                                team: {
+                                    id: score.racerAndTeam.racer.id,
+                                    name: score.racerAndTeam.racer.name,
+                                    points: this.pointsArray[score.position]
+                                },
+                                bestLapTime: score.bestLapTime
+                            }
+                        })
                     }
                 })
             }
@@ -149,7 +168,7 @@ export class HttpService {
     }
 
     getUpcomingRaces() {
-        return this.httpClient.get<{ upcomingRaces: [{_id: string, name: string, date: string}] }>(this.GET_URL + '/upcoming-races').pipe(map(
+        return this.httpClient.get<{ upcomingRaces: [{ _id: string, name: string, date: string }] }>(this.GET_URL + '/upcoming-races').pipe(map(
             upcomingRacesData => {
                 return upcomingRacesData.upcomingRaces.map(upcomingRace => {
                     return {
