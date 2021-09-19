@@ -101,8 +101,8 @@ export class HttpService {
 
     getTeams() {
         return this.httpClient.get<{ teams: [{ _id: string, name: string }] }>(this.GET_URL + '/teams').pipe(map(
-            teamsData => {
-                return teamsData.teams.map(team => {
+            (teamsData) => {
+                return teamsData.teams.map((team) => {
                     return {
                         id: team._id,
                         name: team.name,

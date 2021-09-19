@@ -38,15 +38,60 @@ export class DataService {
 
             // get best lap time and save it in every race
             for (let i = 0; i < this.races.length; i++) {
-                let bestLapTime = [];
+                let bestLapTime = [100,100,100];
+                let teamWithBestLapTime: {id: string, name: string | undefined, points: number};
+                let racerWithBestLapTime: {id: string, name: string | undefined, points: number};
+
                 for (let j = 0; j < this.races[i].scores.length; j++) {
                     let racerBest = this.races[i].scores[j].bestLapTime;
+                    let racerObj = this.races[i].scores[j].racerAndTeam.racer;
+                    let teamObj = this.races[i].scores[j].racerAndTeam.team;
 
+                    //region Best lap if check
+                    if (racerBest[0] < bestLapTime[0]) {
+                        bestLapTime = racerBest;
+                        racerWithBestLapTime = racerObj;
+                        teamWithBestLapTime = teamObj;
+                    } else if (racerBest[0] === bestLapTime[0]) {
+                        if (racerBest[1] < bestLapTime[1]) {
+                            bestLapTime = racerBest;
+                            racerWithBestLapTime = racerObj;
+                            teamWithBestLapTime = teamObj;
+                        } else if (racerBest[1] === bestLapTime[1]) {
+                            if (racerBest[2] < bestLapTime[2]) {
+                                bestLapTime = racerBest;
+                                racerWithBestLapTime = racerObj;
+                                teamWithBestLapTime = teamObj;
+                            }
+                        }
+                    }
+                    //endregion
+
+                    //region Add position points to drivers and teams
+                    let indexOfCurrentRacer = this.racers.findIndex(racer => racer.id === racerObj.id);
+                    if (indexOfCurrentRacer != -1) {
+                        this.racers[indexOfCurrentRacer].points += racerObj.points;
+                    }
+
+                    let indexOfCurrentTeam = this.teams.findIndex(team => team.id === teamObj.id);
+                    if (indexOfCurrentTeam != -1) {
+                        this.teams[indexOfCurrentTeam].points += teamObj.points;
+                    }
+                    //endregion
                 }
+
+                //region Setting best lap time for every race and add points for best lap
+                this.races[i].bestLapTime = bestLapTime;
+                let indexOfRacerWithBestLapTime = this.racers.findIndex(racer => racer.id === racerWithBestLapTime.id);
+                if (indexOfRacerWithBestLapTime) {
+                    this.racers[indexOfRacerWithBestLapTime].points += 1;
+                }
+                let indexOfTeamWithBestLapTime = this.teams.findIndex(team => team.id === teamWithBestLapTime.id);
+                if (indexOfTeamWithBestLapTime) {
+                    this.teams[indexOfTeamWithBestLapTime].points += 1;
+                }
+                //endregion
             }
-
-            //add points from races to the drivers
-
 
             this.sortRacersAndTeamsByPoints()
 
