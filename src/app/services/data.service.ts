@@ -83,11 +83,11 @@ export class DataService {
                 //region Setting best lap time for every race and add points for best lap
                 this.races[i].bestLapTime = bestLapTime;
                 let indexOfRacerWithBestLapTime = this.racers.findIndex(racer => racer.id === racerWithBestLapTime.id);
-                if (indexOfRacerWithBestLapTime) {
+                if (indexOfRacerWithBestLapTime != -1) {
                     this.racers[indexOfRacerWithBestLapTime].points += 1;
                 }
                 let indexOfTeamWithBestLapTime = this.teams.findIndex(team => team.id === teamWithBestLapTime.id);
-                if (indexOfTeamWithBestLapTime) {
+                if (indexOfTeamWithBestLapTime != -1) {
                     this.teams[indexOfTeamWithBestLapTime].points += 1;
                 }
                 //endregion

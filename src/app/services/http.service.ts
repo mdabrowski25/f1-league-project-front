@@ -148,12 +148,12 @@ export class HttpService {
                                     racer: {
                                         id: score.racerAndTeam.racer.id,
                                         name: score.racerAndTeam.racer.name,
-                                        points: this.pointsArray[score.position]
+                                        points: this.pointsArray[score.position - 1]
                                     },
                                     team: {
-                                        id: score.racerAndTeam.racer.id,
-                                        name: score.racerAndTeam.racer.name,
-                                        points: this.pointsArray[score.position]
+                                        id: score.racerAndTeam.team.id,
+                                        name: score.racerAndTeam.team.name,
+                                        points: this.pointsArray[score.position - 1]
                                     }
                                 },
                                 bestLapTime: score.bestLapTime
