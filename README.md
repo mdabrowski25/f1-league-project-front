@@ -1,3 +1,4 @@
+# Project taken down, no funds to keep it alive
 # F1 League project
 [![Azure App Service - ziemniaki-f1-liga](https://github.com/mdabrowski25/f1-league-project-front/actions/workflows/master_ziemniaki-f1-liga.yml/badge.svg)](https://github.com/mdabrowski25/f1-league-project-front/actions/workflows/master_ziemniaki-f1-liga.yml)
 
